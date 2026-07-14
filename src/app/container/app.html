@@ -1,0 +1,26 @@
+<!--
+Layout principal de l'application.
+Ce fichier définit la structure globale présente sur toutes les pages.
+
+Structure :
+- <header> : Contient le composant de navigation (app-navbar).
+  - <main> : Zone de contenu principal avec une classe 'page-container' pour le stylisage.
+    - <router-outlet> : Directive Angular agissant comme un emplacement réservé où le routeur insère dynamiquement le composant associé à la route active.
+      - <footer> : Emplacement pour le pied de page de l'application.
+        -->
+
+        <header>
+          <!-- Composant de barre de navigation partagé -->
+          <app-navbar></app-navbar>
+        </header>
+
+        <main>
+          <div class="page-container">
+            <!-- Point d'injection des composants par le Router -->
+            <router-outlet></router-outlet>
+          </div>
+        </main>
+
+        <footer>
+          <!-- Contenu du pied de page à définir -->
+        </footer>

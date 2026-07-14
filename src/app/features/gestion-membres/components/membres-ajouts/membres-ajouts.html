@@ -1,0 +1,93 @@
+<div class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm flex items-center justify-center ">
+
+  <div class="form-card min-w-2xl">
+
+    <div class="header">
+      <h2>Ajouter un membre</h2>
+      <p class="subtitle">
+        Création d'un nouveau membre
+      </p>
+    </div>
+
+    <div class="form-group">
+      <label>Prénom</label>
+      <input
+        type="text"
+        [formField]="membreForm.prenom"
+        placeholder="Prénom">
+      @if (membreForm.prenom().touched() && membreForm.prenom().invalid()) {
+        <p class="error">{{ membreForm.prenom().errors()[0]?.message }}</p>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Nom</label>
+      <input
+        type="text"
+        [formField]="membreForm.nom"
+        placeholder="Nom">
+      @if (membreForm.nom().touched() && membreForm.nom().invalid()) {
+        <p class="error">{{ membreForm.nom().errors()[0]?.message }}</p>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        [formField]="membreForm.email"
+        placeholder="email@club.be">
+      @if (membreForm.email().touched() && membreForm.email().invalid()) {
+        <p class="error">{{ membreForm.email().errors()[0]?.message }}</p>
+      }
+    </div>
+
+    <div class="form-group">
+      <label>Date de naissance</label>
+      <input
+        type="date"
+        [formField]="membreForm.dateDeNaissance">
+      @if (membreForm.dateDeNaissance().touched() && membreForm.dateDeNaissance().invalid()) {
+        <p class="error">{{ membreForm.dateDeNaissance().errors()[0]?.message }}</p>
+      }
+    </div>
+
+    <div class="form-group">
+
+      <label>Rôle</label>
+
+      <select
+        [(ngModel)]="selectedRole"
+        class="filter">
+
+        <option value="JOUEUR">
+          Joueur
+        </option>
+
+        <option value="COACH">
+          Coach
+        </option>
+
+        <option value="ADMIN">
+          Administrateur
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="actions">
+
+      <button class="save" (click)="save()">
+        💾 Enregistrer
+      </button>
+
+      <button class="cancel" (click)="cancelmodal.emit()">
+        Annuler
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

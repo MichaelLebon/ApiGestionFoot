@@ -1,0 +1,75 @@
+/* =====================================
+   BOUTONS D'AUTHENTIFICATION
+   Styles pour les boutons de connexion et d'enregistrement.
+===================================== */
+
+.btn-connection,
+.btn-primary,
+.btn-enregistrer {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+/* Bouton principal (Bleu) */
+.btn-connection,
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+
+.btn-connection:hover,
+.btn-primary:hover {
+  transform: translateY(-2px);
+  background: #1d4ed8;
+}
+
+/* Bouton secondaire / Enregistrement (Blanc) */
+.btn-enregistrer {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-enregistrer:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+/* =====================================
+   TYPOGRAPHIE
+   Définition des styles pour les titres et paragraphes d'accueil.
+===================================== */
+
+h1 {
+  color: #0f172a;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+h2 {
+  color: #0f172a;
+}
+
+p {
+  color: #64748b;
+  font-size: 15px;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* =====================================
+   SÉPARATION VISUELLE
+===================================== */
+
+.separation {
+  margin: 20px 0;
+  color: #94a3b8;
+  font-size: 13px;
+}

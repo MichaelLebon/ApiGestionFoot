@@ -1,0 +1,30 @@
+<!--
+  Formulaire simplifié de connexion (Composant SignInForm).
+  Ce composant invite l'utilisateur à s'authentifier via Keycloak.
+-->
+
+<div class="auth-actions">
+
+  <h1>Bienvenue sur GestionEquipe ⚽</h1>
+
+  <p>Accédez à votre espace de gestion.</p>
+
+  <!--
+    Control Flow Angular (@if) :
+    Affiche le bouton de connexion uniquement si l'utilisateur n'est pas encore chargé/connecté.
+    'user()' fait référence à un signal ou une fonction retournant l'état de l'utilisateur.
+  -->
+  @if(!user()) {
+
+    <button
+      class="btn-primary"
+      (click)="login()">
+      Se connecter
+    </button>
+
+  }
+
+</div>
+
+
+

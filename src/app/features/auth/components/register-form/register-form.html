@@ -1,0 +1,98 @@
+<!--
+  Formulaire d'inscription (Composant RegisterForm).
+  Ce formulaire utilise massivement les composants PrimeNG pour une interface riche.
+
+  Structure et Concepts :
+  - p-floatlabel : Gère l'effet de label flottant lors de la saisie.
+  - [(ngModel)] : Double liaison (Two-way data binding) pour synchroniser les champs avec les variables du TypeScript.
+  - p-datepicker / p-select : Composants spécialisés pour les dates et les listes de choix.
+  - p-password : Champ de saisie sécurisé avec option de masquage.
+-->
+
+<div class="register-container">
+
+  <div class="register-header">
+    <p>Complétez les informations pour créer votre compte</p>
+  </div>
+
+  <!-- Grille pour les champs Nom et Prénom -->
+  <div class="form-grid">
+    <p-floatlabel variant="on">
+      <input pInputText id="lastName" [(ngModel)]="valueLastName" />
+      <label for="lastName">Nom</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+      <input pInputText id="firstName" [(ngModel)]="valueName" />
+      <label for="firstName">Prénom</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Adresse Email avec validation d'erreur -->
+  <p-floatlabel variant="on">
+    <input pInputText id="mail" [(ngModel)]="valueMail" [invalid]="emailError" />
+    <label for="mail">Adresse email</label>
+  </p-floatlabel>
+
+  <small *ngIf="emailError" class="error-text">
+    Adresse email invalide
+  </small>
+
+  <!-- Nom d'utilisateur -->
+  <p-floatlabel variant="on">
+    <input pInputText id="username" [(ngModel)]="valueUsername" />
+    <label for="username">Nom d'utilisateur</label>
+  </p-floatlabel>
+
+  <!-- Grille pour Date de naissance et Sexe -->
+  <div class="form-grid">
+    <p-floatlabel variant="on">
+      <p-datepicker inputId="birthdate" [(ngModel)]="birthdate" dateFormat="dd/mm/yy">
+      </p-datepicker>
+      <label for="birthdate">Date de naissance</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on">
+      <p-select inputId="gender" [options]="genders" optionLabel="label" optionValue="value" [(ngModel)]="valueSexe">
+      </p-select>
+      <label for="gender">Sexe</label>
+    </p-floatlabel>
+  </div>
+
+  <!-- Mot de passe avec règles de validation dynamiques -->
+  <p-floatlabel variant="on">
+    <p-password inputId="password" [(ngModel)]="valuePassword" [feedback]="false" [toggleMask]="true" autocomplete="off">
+    </p-password>
+    <label for="password">Mot de passe</label>
+  </p-floatlabel>
+
+  <!-- Liste des critères de validité du mot de passe -->
+  <ul class="password-rules">
+    <li [class.valid]="passwordHasLowerCase">✓ Une minuscule</li>
+    <li [class.valid]="passwordHasUpperCase">✓ Une majuscule</li>
+    <li [class.valid]="passwordHasNumber">✓ Un chiffre</li>
+    <li [class.valid]="passwordHasMinLength">✓ 8 caractères</li>
+  </ul>
+
+  <!-- Confirmation du mot de passe -->
+  <p-floatlabel variant="on">
+    <p-password inputId="confirmPassword" [(ngModel)]="valueValidationPassword" [feedback]="false" [toggleMask]="true" [invalid]="passwordError">
+    </p-password>
+    <label for="confirmPassword">Confirmation du mot de passe</label>
+  </p-floatlabel>
+
+  <!-- Messages de succès ou d'erreur de correspondance -->
+  <small *ngIf="valueValidationPassword && passwordsMatch" class="success-text">
+    ✓ Les mots de passe correspondent
+  </small>
+
+  <small *ngIf="valueValidationPassword && !passwordsMatch" class="error-text">
+    ✗ Les mots de passe sont différents
+  </small>
+
+  <!-- Bouton d'action final -->
+  <button class="btn-register" (click)="register()">
+    Créer mon compte
+  </button>
+
+</div>

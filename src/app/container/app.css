@@ -1,0 +1,118 @@
+/* =====================================
+   RESET & STYLES DE BASE
+   Réinitialisation des marges et paddings pour une cohérence multi-navigateur.
+===================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =====================================
+   CONTAINER PRINCIPAL
+   Utilisé pour centrer le contenu sur les pages principales (comme l'accueil).
+===================================== */
+
+.container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding: 2rem;
+}
+
+/* =====================================
+   SECTION TEXTE / API SECTION
+   Stylise les titres et paragraphes de présentation.
+===================================== */
+
+.api-section {
+  flex: 1;
+  max-width: 500px;
+}
+
+.api-section h2 {
+  /* Utilisation de clamp pour une typographie responsive fluide */
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.api-section p {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.7;
+  color: #64748b;
+}
+
+/* =====================================
+   HOME CARD (Composant HomeCard)
+   Conteneur pour la carte de présentation sur la page d'accueil.
+===================================== */
+
+app-home-card {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 650px;
+}
+
+/* =====================================
+   RESPONSIVE : TABLETTE
+===================================== */
+
+@media (max-width: 1024px) {
+  .container {
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+/* =====================================
+   RESPONSIVE : MOBILE
+   Passage en layout vertical pour les petits écrans.
+===================================== */
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .api-section {
+    max-width: 100%;
+  }
+
+  app-home-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* =====================================
+   RESPONSIVE : PETITS TELEPHONES
+===================================== */
+
+@media (max-width: 480px) {
+  .container {
+    padding: .75rem;
+  }
+
+  .api-section h2 {
+    font-size: 1.8rem;
+  }
+}

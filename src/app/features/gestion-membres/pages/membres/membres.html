@@ -1,0 +1,156 @@
+<!-- =========================================================
+ PAGE : GESTION DES MEMBRES
+ ========================================================= -->
+
+<div class="page">
+
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2>Gestion des membres</h2>
+    <p class="subtitle">Administration des joueurs, rôles et équipes</p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <h3>{{ filteredList().length }}</h3>
+      <p>Total membres</p>
+    </div>
+  </div>
+
+  <!-- FILTRES -->
+  <div class="actions-bar">
+
+    <input
+      type="text"
+      placeholder="Rechercher un membre..."
+      [(ngModel)]="search"
+      (ngModelChange)="applyFilter()"
+      class="search-input"
+    />
+
+    <select
+      [(ngModel)]="filterRole"
+      (ngModelChange)="applyFilter()"
+      class="filter">
+
+      <option value="">Tous les rôles</option>
+      <option value="JOUEUR">Joueur</option>
+      <option value="COACH">Coach</option>
+      <option value="ADMIN">Admin</option>
+
+    </select>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="table">
+
+    <div class="row header">
+      <div>Nom</div>
+      <div>Rôles</div>
+      <div>Statut</div>
+      <div>Équipe</div>
+      <div>Actions</div>
+    </div>
+    @if(filteredList().length > 0 ){
+
+      @for(membre of filteredList(); track membre.id){
+        <div class="row">
+
+          <div class="bold">
+            {{ membre.prenom }} {{ membre.nom }}
+          </div>
+
+          <div>
+            <span class="badge">
+              {{ membre.roles.join(', ') }}
+            </span>
+          </div>
+
+          <div>
+            <span class="status"
+                  [class.free]="membre.statut === 'LIBRE'"
+                  [class.club]="membre.statut === 'EN_CLUB'">
+              {{ membre.statut }}
+            </span>
+          </div>
+
+          <div>
+            {{ membre.equipe || 'Aucune équipe' }}
+          </div>
+
+          <div class="actions">
+            <button (click)="openDetail(membre)">👁</button>
+            <button (click)="manageRoles(membre)">🧩</button>
+            <button class="danger" (click)="deleteMember(membre.id)">🗑</button>
+          </div>
+
+        </div>
+    }
+    }
+    @else{
+      <p>Pas de correspondance pour cette recherche . </p>
+    }
+
+  </div>
+</div>
+
+<!-- MODAL -->
+@if (selectedMember) {
+<div class="modal-backdrop">
+
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h3>{{ selectedMember.prenom }} {{ selectedMember.nom }}</h3>
+      <button class="close" (click)="closeModal()">✖</button>
+    </div>
+
+    <div class="modal-content">
+
+      <div class="info">
+        <label>Email</label>
+        <p>{{ selectedMember.email }}</p>
+      </div>
+
+      <div class="info">
+        <label>Date de naissance</label>
+        <p>{{ selectedMember.dateDeNaissance }}</p>
+      </div>
+
+      <div class="info">
+        <label>Rôles</label>
+        <p>{{ selectedMember.roles?.join(', ') }}</p>
+      </div>
+
+      <div class="info">
+        <label>Statut</label>
+        <p>{{ selectedMember.statut }}</p>
+      </div>
+
+      <div class="info">
+        <label>Équipe</label>
+        <p>{{ selectedMember.equipe || 'Aucune équipe' }}</p>
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button (click)="manageRoles(selectedMember)">Rôles</button>
+
+      <button class="danger" (click)="deleteMember(selectedMember.id)">
+        Supprimer
+      </button>
+      @if (selectedMember.equipe !== null ) {
+      <button (click)="removeFromTeam(selectedMember)">
+        Rendre libre
+      </button>
+      }
+    </div>
+
+  </div>
+</div>
+}

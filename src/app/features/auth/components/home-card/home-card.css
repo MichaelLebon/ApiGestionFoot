@@ -1,0 +1,144 @@
+/* ==========================================
+   AUTH CARD
+   Carte avec effet de "Glassmorphism" (transparence et flou).
+========================================== */
+
+.auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  padding: 70px 40px 40px;
+
+  /* Fond blanc semi-transparent */
+  background: rgba(255, 255, 255, 0.75);
+  /* Effet de flou sur le contenu arrière */
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(0, 188, 252, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+/* ==========================================
+   LOGO POSITIONNÉ
+   Le logo dépasse légèrement du bord de la carte.
+========================================== */
+
+.logo-container {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #00bcfc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+
+.logo-container img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* ==========================================
+   TYPOGRAPHIE INTERNE
+========================================== */
+
+.auth-card h1,
+.auth-card h2 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.auth-card h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.auth-card p {
+  margin-top: 1rem;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   RESPONSIVE : TABLETTE
+========================================== */
+
+@media (max-width: 1024px) {
+  .auth-card {
+    max-width: 500px;
+    padding: 65px 30px 30px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE : MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .auth-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 60px 20px 24px;
+    border-radius: 20px;
+  }
+
+  .logo-container {
+    width: 70px;
+    height: 70px;
+    top: -15px;
+    left: -15px;
+  }
+
+  .logo-container img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .auth-card h2 {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE : PETITS TELEPHONES
+========================================== */
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 55px 16px 20px;
+    border-radius: 16px;
+  }
+
+  .logo-container {
+    width: 60px;
+    height: 60px;
+    top: -12px;
+    left: -12px;
+  }
+
+  .logo-container img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .auth-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .auth-card p {
+    font-size: .95rem;
+  }
+}

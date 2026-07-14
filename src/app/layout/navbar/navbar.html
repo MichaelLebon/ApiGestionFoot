@@ -1,0 +1,56 @@
+<!--
+  Barre de navigation principale (Composant Navbar).
+  Utilise le composant p-menubar de PrimeNG pour une navigation responsive.
+
+  Directives et propriétés clés :
+  - [model]="items" : Lie la structure du menu définie dans le TypeScript au composant.
+  - pTemplate="start/end" : Permet de personnaliser les zones gauche et droite de la barre.
+-->
+<p-menubar [model]="items">
+  <!--
+    Zone GAUCHE (pTemplate="start") :
+    Affiche le logo et le titre de l'application.
+  -->
+  <ng-template pTemplate="start">
+    <div class="flex align-items-center gap-2">
+      <img src="logo.png" alt="GestionEquipe" class="navbar-logo">
+    </div>
+  </ng-template>
+
+  <!--
+    Zone DROITE (pTemplate="end") :
+    Gestion de l'authentification et affichage du profil utilisateur.
+  -->
+  <ng-template pTemplate="end">
+
+    <!-- Icône utilisateur générique -->
+    <i class="pi pi-user"></i>
+
+    <!--
+      Vérifie si Keycloak est prêt (ready()) et si l'utilisateur est authentifié (isAuth()).
+    -->
+    @if (ready() && isAuth()) {
+      <ng-container>
+      <span class="ml-2">
+       <!-- Affiche le nom de l'utilisateur via une fonction de signal/getter -->
+        {{ displayName() }}
+      </span>
+        <button class="logout-btn" (click)="logout()">
+          Se déconnecter
+        </button>
+      </ng-container>
+    }
+    <!-- 
+         Affichage du bouton de connexion si non authentifié.
+         L'appel à keycloakStore.login() redirige vers Keycloak.
+       -->
+    @if (ready() && !isAuth()) {
+      <ng-container>
+        <button (click)="keycloakStore.login()">
+          Se connecter
+        </button>
+      </ng-container>
+    }
+  </ng-template>
+
+</p-menubar>

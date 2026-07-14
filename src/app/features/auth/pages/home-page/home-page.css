@@ -1,0 +1,62 @@
+/* =====================================
+   RESET ET TYPOGRAPHIE LOCALE
+===================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* =====================================
+   CONTENEUR PRINCIPAL (Layout Flex)
+===================================== */
+.container {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  min-height: 100vh;
+
+  /* Adaptation tablette/mobile : passage en colonne */
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 25px;
+  }
+}
+
+/* =====================================
+   SECTION GAUCHE (API SECTION)
+   Contient le titre et le texte de présentation.
+===================================== */
+.api-section {
+  flex: 1;
+  justify-content: space-between;
+  margin-left: 25px;
+  align-items: center;
+  /* Animation d'entrée fluide */
+  animation: fadeInUp 0.8s ease;
+  z-index: 2;
+
+  /* Inversion de l'ordre sur mobile pour mettre la carte en premier */
+  @media (max-width: 1024px) {
+    order: 2;
+  }
+}
+
+.api-section h2 {
+  font-size: 36px;
+  color: #0f172a;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.api-section p {
+  font-size: 17px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+
+

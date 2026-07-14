@@ -1,0 +1,246 @@
+/* =====================================
+   LAYOUT DE LA PAGE
+   Conteneur principal avec un fond dégradé complexe et des ombres portées.
+===================================== */
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  /* Combinaison de dégradés radiaux et linéaires pour un aspect moderne */
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 188, 252, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.15), transparent 30%),
+    linear-gradient(135deg, #f8fbff, #eef6ff, #e3f4ff);
+
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+  color: #0f172a;
+}
+
+/* SECTION STATISTIQUES */
+.stats {
+  margin-top: 20px;
+  display: flex;
+  gap: 16px;
+}
+
+.stat-card {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e2e8f0;
+  min-width: 160px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.stat-card p {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+/* EN-TÊTE */
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* BARRE D'ACTIONS */
+.actions-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.filter {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
+}
+
+/* TABLEAU DES MEMBRES (Layout CSS Grid) */
+.table {
+  margin-top: 20px;
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.row {
+  display: grid;
+  /* Définition précise des colonnes de la grille */
+  grid-template-columns: 2fr 1fr 1fr 1fr 160px;
+  padding: 16px 18px;
+  border-bottom: 1px solid #e2e8f0;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.row.header {
+  background: #0f172a;
+  color: white;
+  font-weight: 600;
+}
+
+/* BADGES ET STATUTS */
+.badge {
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.free {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status.club {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.actions button {
+  border: none;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.actions button:hover {
+  background: #e2e8f0;
+  transform: scale(1.05);
+}
+
+.actions .danger {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* =====================================
+   MODAL (Fenêtre Surgissante)
+   Utilisation de backdrop-filter pour flouter l'arrière-plan.
+===================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  width: 460px;
+  max-width: 92%;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.modal-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.info label {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.info p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: #f8fafc;
+}
+
+.modal-actions button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-actions button:not(.danger) {
+  background: #2563eb;
+  color: white;
+}
+
+.modal-actions button:not(.danger):hover {
+  background: #1d4ed8;
+}
+
+.modal-actions .danger {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-actions .danger:hover {
+  background: #dc2626;
+}
+

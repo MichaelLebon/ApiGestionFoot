@@ -1,0 +1,114 @@
+/* =====================================
+   CONTENEUR D'INSCRIPTION
+   Layout principal utilisant Flexbox pour empiler les champs verticalement.
+===================================== */
+
+.register-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* EN-TÊTE DU FORMULAIRE */
+.register-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.register-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.register-header p {
+  margin-top: 6px;
+  color: #64748b;
+}
+
+/* GRILLE DE FORMULAIRE (Layout sur deux colonnes) */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* =====================================
+   SURCHARGE DES COMPOSANTS PRIMENG
+   Cible les classes internes de PrimeNG pour unifier le design.
+===================================== */
+
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-password-input,
+:host ::ng-deep .p-datepicker-input,
+:host ::ng-deep .p-select-label {
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+}
+
+:host ::ng-deep .p-password,
+:host ::ng-deep .p-datepicker,
+:host ::ng-deep .p-select {
+  width: 100%;
+}
+
+/* RÈGLES DE VALIDATION DU MOT DE PASSE */
+.password-rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  list-style: none;
+  padding: 0;
+  margin: -10px 0 0 0;
+  font-size: .82rem;
+}
+
+.password-rules li {
+  color: #94a3b8;
+}
+
+/* État valide d'un critère (couleur verte) */
+.password-rules li.valid {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* MESSAGES DE VALIDATION (Erreur et Succès) */
+.error-text,
+.success-text {
+  display: block;
+  margin-top: -10px;
+  font-size: .82rem;
+}
+
+.error-text {
+  color: #ef4444;
+}
+
+.success-text {
+  color: #22c55e;
+}
+
+/* BOUTON D'INSCRIPTION */
+.btn-register {
+  width: 100%;
+  height: 50px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 12px;
+  background: #0ea5e9;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-register:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+}

@@ -1,3 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+/* Fichier de styles globaux de l'application */
 
+/* Importation des utilitaires Tailwind CSS */
 @import 'tailwindcss';
+
+/* Styles de base pour le corps de la page (Light Mode par défaut) */
+body{
+  /* Dégradés radiaux et linéaires pour créer un arrière-plan moderne */
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 188, 252, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.15), transparent 30%),
+    linear-gradient(135deg, #f8fbff, #eef6ff, #e3f4ff);
+}
+
+/* Support du mode sombre basé sur les préférences système de l'utilisateur */
+@media(prefers-color-scheme: dark){
+  body{
+    /* Ajustement des couleurs de fond pour le mode sombre */
+    background:radial-gradient(circle at 20% 20%, rgba(0, 188, 252, 0.18), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(37, 99, 235, 0.15), transparent 30%),
+    linear-gradient(135deg, #0f172a, #111827, #1e293b);
+
+  }
+}
