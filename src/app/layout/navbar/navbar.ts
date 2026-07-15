@@ -100,12 +100,10 @@ export class MenubarBasicDemo implements OnInit {
 
   /**
    * Déconnecte l'utilisateur actuellement authentifié
-   * et redirige vers la page d'accueil de l'application.
+   * et le redirige vers la page d'accueil.
    */
   logout(): void {
-    this.keycloakStore.logout({
-      redirectUri: window.location.origin,
-    });
+    this.keycloakStore.logout();
   }
 
   /**

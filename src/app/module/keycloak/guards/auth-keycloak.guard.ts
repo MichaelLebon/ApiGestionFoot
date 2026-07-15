@@ -2,31 +2,35 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { KeycloakStore } from '../keycloak-store';
 
-/**
- * Guard vérifiant si l'utilisateur est authentifié avec Keycloak.
- * Si Keycloak n'est pas initialisé, il tente de l'initialiser.
- * Si l'utilisateur n'est pas connecté, il est redirigé vers la page de login.
- * 
- * @param route La route activée
- * @param state L'état du routeur
- * @returns true si l'utilisateur est authentifié, sinon redirige vers /login
- */
-export const authKeycloakGuard: CanActivateFn = async (route, state) => {
+export const authKeycloakGuard: CanActivateFn = async () => {
   const store = inject(KeycloakStore);
   const router = inject(Router);
 
-  // ─── INIT ───────────────────────────────
-  if (!store.initialized()) {
-    await store.init();
+  /**
+   * Attendre que Keycloak soit prêt
+   */
+  if (!store.ready()) {
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (store.ready()) {
+          clearInterval(interval);
+          resolve(true);
+        }
+      }, 50);
+    });
   }
 
-  // ─── SI CONNECTÉ → OK ───────────────────
+  /**
+   * Utilisateur connecté
+   */
   if (store.authenticated()) {
     return true;
   }
 
-  // ─── ❌ PAS CONNECTÉ → REDIRECT LOGIN ───
-  await router.navigate(['/login']);
+  /**
+   * Pas connecté
+   */
+  router.navigate(['/']);
 
   return false;
 };

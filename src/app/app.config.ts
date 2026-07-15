@@ -1,8 +1,20 @@
 /**
  * @file app.config.ts
  * @description Configuration globale de l'application Angular.
- * Définit les fournisseurs (providers) essentiels comme le routage, le client HTTP,
- * l'authentification Keycloak et la gestion des thèmes.
+ *
+ * Cette configuration enregistre les principaux providers :
+ * - le routeur
+ * - le client HTTP
+ * - l'authentification Keycloak
+ * - le système de thème
+ * - la configuration générale de l'application
+ *
+ * IMPORTANT :
+ * Depuis keycloak-angular 21, l'initialisation de Keycloak est réalisée
+ * automatiquement par provideKeycloak() via les initOptions définies dans
+ * keycloak.provider.ts.
+ *
+ * Il ne faut donc plus appeler keycloak.init() ici.
  */
 
 import {
@@ -18,51 +30,98 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
+
 import { provideTheme } from '../themes/provider.theme';
 import { MainTheme } from '../themes/main.theme';
 import { ServiceTheme } from '../themes/service.theme';
 
 import { provideKeycloakAngular } from './module/keycloak/keycloak.provider';
-import { KeycloakStore } from './module/keycloak/keycloak-store';
 
 /**
- * Configuration locale des fournisseurs de l'application.
+ * ------------------------------------------------------------------------
+ * Configuration locale de l'application
+ * ------------------------------------------------------------------------
  */
 const localConfig: ApplicationConfig = {
   providers: [
-    // Active la détection de changement sans zone pour de meilleures performances
+    /**
+     * Active le mode "zoneless".
+     * Angular ne dépend plus de zone.js et utilise les Signals
+     * pour déclencher les mises à jour de l'interface.
+     */
     provideZonelessChangeDetection(),
-    // Fournit des écouteurs d'erreurs globaux pour le navigateur
+
+    /**
+     * Active les gestionnaires globaux d'erreurs.
+     * Les erreurs non interceptées sont correctement remontées
+     * par Angular.
+     */
     provideBrowserGlobalErrorListeners(),
 
-    // Client HTTP pour les appels API
+    /**
+     * Active le client HTTP utilisé pour communiquer avec
+     * le backend Spring Boot.
+     */
     provideHttpClient(),
-    // Service d'authentification Keycloak
+
+    /**
+     * Configure entièrement Keycloak.
+     *
+     * Ce provider :
+     *  - crée l'instance Keycloak
+     *  - appelle automatiquement kc.init(...)
+     *  - configure les intercepteurs HTTP
+     *  - active le rafraîchissement automatique du token
+     *
+     * Il est inutile d'appeler init() ailleurs.
+     */
     provideKeycloakAngular(),
 
-    // Configuration du routeur avec liaison des paramètres d'entrée aux composants
+    /**
+     * Configuration du routeur Angular.
+     *
+     * withComponentInputBinding() permet d'injecter directement
+     * les paramètres des routes dans les @Input() des composants.
+     */
     provideRouter(routes, withComponentInputBinding()),
 
-    // ─── INITIALISATION DE L'APPLICATION ─────────────────────────────
     /**
-     * Initialiseur d'environnement exécuté au démarrage de l'application.
-     * Configure Keycloak et le thème par défaut.
+     * --------------------------------------------------------------------
+     * Initialisation de l'application
+     * --------------------------------------------------------------------
+     *
+     * Cette fonction est exécutée une seule fois au démarrage.
+     *
+     * On initialise uniquement les services applicatifs qui ne sont
+     * pas déjà gérés automatiquement.
+     *
+     * Ici :
+     *  - application du thème par défaut.
+     *
+     * AUCUNE initialisation de Keycloak n'est réalisée ici.
      */
-    provideEnvironmentInitializer(async () => {
+    provideEnvironmentInitializer(() => {
       const theme = inject(ServiceTheme);
-      const keycloak = inject(KeycloakStore);
 
-      // ✅ Initialisation asynchrone de Keycloak
-      await keycloak.init();
-
-      // Initialisation du thème (par défaut : 'light')
+      /**
+       * Thème appliqué au démarrage.
+       *
+       * Valeurs possibles selon ton projet :
+       *  - "light"
+       *  - "dark"
+       */
       theme.set('light');
     }),
   ],
 };
 
 /**
- * Configuration finale de l'application, fusionnant la configuration locale
- * avec le fournisseur de thème principal.
+ * ------------------------------------------------------------------------
+ * Configuration finale de l'application
+ * ------------------------------------------------------------------------
+ *
+ * Fusionne :
+ *  - la configuration locale
+ *  - le fournisseur du thème principal
  */
 export const appConfig = mergeApplicationConfig(localConfig, provideTheme(MainTheme, true));
