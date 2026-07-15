@@ -8,6 +8,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenubarBasicDemo } from '../layout/navbar/navbar';
+import { ModalInfo } from '../shared/components/modal-info/modal-info';
 
 /**
  * @class App
@@ -17,7 +18,7 @@ import { MenubarBasicDemo } from '../layout/navbar/navbar';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MenubarBasicDemo],
+  imports: [RouterOutlet, MenubarBasicDemo, ModalInfo],
   templateUrl: './app.html',
 })
 export class App {}

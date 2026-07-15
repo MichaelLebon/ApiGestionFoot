@@ -1,0 +1,34 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>{{ membre().prenom }} {{ membre().nom }}</h3>
+      <button type="button" class="close" (click)="close.emit()">✖</button>
+    </div>
+    <div class="modal-content">
+      <div class="info">
+        <label>Email</label>
+        <p>{{ membre().email }}</p>
+      </div>
+      <div class="info">
+        <label>Rôles</label>
+        <p>{{ membre().roles.join(', ') }}</p>
+      </div>
+      <div class="info">
+        <label>Statut</label>
+        <p>{{ membre().statut }}</p>
+      </div>
+      <div class="info">
+        <label>Équipe</label>
+        <p>{{ membre().equipe || 'Aucune' }}</p>
+      </div>
+    </div>
+    <div class="modal-actions">
+      @if(membre().statut === 'INACTIF'){
+        <button type="button" class="restore" (click)="activate.emit(membre())">♻ Réactiver</button>
+      } @else {
+        <button type="button" (click)="assign.emit(membre())">➕ Assigner équipe</button>
+        <button type="button" id="danger" (click)="delete.emit(membre().id)">🗑Désactiver</button>
+      }
+    </div>
+  </div>
+</div>

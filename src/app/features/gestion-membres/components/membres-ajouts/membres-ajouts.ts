@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MembreService } from '../../services/membres.service';
 import { MembreRequest } from '../../models/membre.model';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
+import { ModalServices } from '../../../../shared/services/modal-services';
 
 @Component({
   selector: 'app-membres-ajout',
@@ -16,7 +17,7 @@ import { email, form, FormField, required, submit } from '@angular/forms/signals
 })
 export default class MembresAjoutsComponent {
   // ================= SERVICES =================
-
+  private modalService = inject(ModalServices);
   private membreService = inject(MembreService);
   private router = inject(Router);
 
@@ -48,10 +49,11 @@ export default class MembresAjoutsComponent {
       this.membreService.create(this.membreModel()).subscribe({
         next: () => {
           this.confirmmodal.emit(false);
+          this.modalService.success('Membre ajouté avec succès');
         },
         error: (err) => {
           console.error(err);
-          alert('Erreur lors de la création du membre.');
+          this.modalService.error('Erreur lors de la création du membre.');
         },
       });
       // return undefined; // pas d'erreurs serveur additionnelles à mapper

@@ -2,6 +2,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Membre, MembreRequest } from '../models/membre.model';
+import { pipe, tap } from 'rxjs';
 
 /**
  * Service gérant les opérations liées aux membres.
@@ -42,15 +43,24 @@ export class MembreService {
   }
 
   deleteMember(id: string) {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
+    .pipe(tap(() => this.reload()))
   }
   create(membre: MembreRequest) {
-    return this.http.post(this.apiUrl, membre);
+    return this.http.post(this.apiUrl, membre).pipe(tap(() => this.reload()));
   }
   assignMemberToTeam(membre: Membre, equipeId: string) {
-    return this.http.post(`${this.apiUrl}/${membre.id}/equipe/${equipeId}`, membre);
+    return this.http
+      .post(`${this.apiUrl}/${membre.id}/equipes/${equipeId}`, membre)
+      .pipe(tap(() => this.reload()));
   }
   activateMember(membre: Membre) {
-    this.http.put<Membre>(`${this.apiUrl}/${membre.id}/activate`, {}).subscribe()
+    return this.http.put<Membre>(`${this.apiUrl}/${membre.id}/activate`, {}).pipe(tap(() => this.reload()));
+  }
+
+  private reload(){
+    this.membresAffectesResource.reload();
+    this.membresLibresResource.reload();
+    this.membresInactifsResource.reload();
   }
 }

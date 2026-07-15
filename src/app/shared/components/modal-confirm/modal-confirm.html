@@ -1,0 +1,10 @@
+<div class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-icon">⚠</div>
+    <p class="modal-message">{{ message() }}</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" (click)="cancel.emit()">Annuler</button>
+      <button type="button" class="btn-confirm" (click)="confirm.emit()">Confirmer</button>
+    </div>
+  </div>
+</div>

@@ -25,14 +25,14 @@
     <input
       type="text"
       placeholder="Rechercher un membre..."
-      [(ngModel)]="search"
-      (ngModelChange)="applyFilter()"
+      [ngModel]="search()"
+      (ngModelChange)="search.set($event)"
       class="search-input"
     />
 
     <select
-      [(ngModel)]="filterRole"
-      (ngModelChange)="applyFilter()"
+      [ngModel]="filterRole()"
+      (ngModelChange)="filterRole.set($event)"
       class="filter">
 
       <option value="">Tous les rôles</option>

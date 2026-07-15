@@ -76,7 +76,7 @@
           <div class="actions">
             <button type="button" (click)="openDetail(membre)">👁</button>
             <button type="button" (click)="assignMemberToTeam(membre)">➕</button>
-            <button type="button" class="danger" (click)="deleteJoueur(membre.id)">🗑</button>
+            <button type="button" class="danger" (click)="openModalConfirm(membre)">🗑</button>
           </div>
         </div>
       }
@@ -129,42 +129,13 @@
 
   <!-- MODAL DETAILS -->
   @if(selectedJoueur()){
-    <div class="modal-backdrop">
-      <div class="modal-card">
-        <div class="modal-header">
-          <h3>
-            {{ selectedJoueur()!.prenom }}
-            {{ selectedJoueur()!.nom }}
-          </h3>
-          <button type="button" class="close" (click)="closeModal()">✖</button>
-        </div>
-        <div class="modal-content">
-          <div class="info">
-            <label>Email</label>
-            <p>{{ selectedJoueur()!.email }}</p>
-          </div>
-          <div class="info">
-            <label>Rôles</label>
-            <p>{{ selectedJoueur()!.roles.join(', ') }}</p>
-          </div>
-          <div class="info">
-            <label>Statut</label>
-            <p>{{ selectedJoueur()!.statut }}</p>
-          </div>
-          <div class="info">
-            <label>Équipe</label>
-            <p>{{ selectedJoueur()!.equipe || 'Aucune' }}</p>
-          </div>
-        </div>
-        <div class="modal-actions">
-          @if(selectedJoueur()!.statut === 'INACTIF'){
-            <button type="button" class="restore" (click)="activateMember(selectedJoueur()!)">♻ Réactiver</button>
-          } @else {
-            <button type="button" (click)="assignMemberToTeam(selectedJoueur()!)">➕ Assigner équipe</button>
-          }
-        </div>
-      </div>
-    </div>
+  <app-modal-detail-inactif
+    [membre]="selectedJoueur()!"
+    (close)="closeModal()"
+    (activate)="activateMember($event)"
+    (assign)="assignMemberToTeam($event)"
+    (delete)="openModalConfirm(selectedJoueur()!)"
+  />
   }
 </div>
 
@@ -173,4 +144,12 @@
     (cancelmodal)="modalAjoutIsOpen.set(false)"
     (confirmmodal)="modalAjoutIsOpen.set(false)">
   </app-membres-ajout>
+
+}
+@if (modalConfirmIsOpen()) {
+  <app-modal-confirm
+    (cancel)="closeModalConfirm()"
+    (confirm)="deleteJoueur(selectedIdToDelete()!)"
+    [message]="confirmMessage()">
+  </app-modal-confirm>
 }
