@@ -116,7 +116,7 @@
           </div>
           <div class="actions">
             <button type="button" (click)="openDetail(membre)">👁</button>
-            <button type="button" class="restore" (click)="activateMember(membre)">♻ Réactiver</button>
+            <button type="button" class="restore" (click)="openModalActive(membre)">♻ Réactiver</button>
           </div>
         </div>
       }
@@ -126,20 +126,19 @@
       </div>
     }
   </div>
+  </div>
 
   <!-- MODAL DETAILS -->
-  @if(selectedJoueur()){
-  <app-modal-detail-inactif
-    [membre]="selectedJoueur()!"
-    (close)="closeModal()"
-    (activate)="activateMember($event)"
-    (assign)="assignMemberToTeam($event)"
-    (delete)="openModalConfirm(selectedJoueur()!)"
-  />
+  @if(modalDetailIsOpen()){
+    <app-modal-detail-inactif
+      [membre]="selectedJoueur()!"
+      (close)="closeModal()"
+      (activate)="openModalActive(selectedJoueur()!)"
+      (assign)="assignMemberToTeam($event)"
+      (delete)="openModalConfirm(selectedJoueur()!)"
+    />
   }
-</div>
-
-@if(modalAjoutIsOpen()){
+  @if(modalAjoutIsOpen()){
   <app-membres-ajout
     (cancelmodal)="modalAjoutIsOpen.set(false)"
     (confirmmodal)="modalAjoutIsOpen.set(false)">
@@ -150,6 +149,13 @@
   <app-modal-confirm
     (cancel)="closeModalConfirm()"
     (confirm)="deleteJoueur(selectedIdToDelete()!)"
+    [message]="confirmMessage()">
+  </app-modal-confirm>
+}
+@if (modalActiveIsOpen()) {
+  <app-modal-confirm
+    (cancel)="closeModalActive()"
+    (confirm)="activateMember(selectedJoueur()!)"
     [message]="confirmMessage()">
   </app-modal-confirm>
 }

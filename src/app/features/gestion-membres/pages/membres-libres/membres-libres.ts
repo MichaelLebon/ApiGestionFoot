@@ -6,13 +6,16 @@ import { MembreService } from '../../services/membres.service';
 import { Membre } from '../../models/membre.model';
 import MembresAjoutsComponent from '../../components/membres-ajouts/membres-ajouts';
 import { ModalServices } from '../../../../shared/services/modal-services';
-import { ModalDetailInactif } from '../../components/modal-detail-inactif/modal-detail-inactif';
 import { ModalConfirm } from '../../../../shared/components/modal-confirm/modal-confirm';
+import { ModalDetailInactif } from '../../components/modal-detail-inactif/modal-detail-inactif';
+import {
+  findUnsupportedZoneUsages
+} from '@angular/cli/src/commands/mcp/tools/onpush-zoneless-migration/analyze-for-unsupported-zone-uses';
 
 @Component({
   selector: 'app-membres-libres',
   standalone: true,
-  imports: [CommonModule, FormsModule, MembresAjoutsComponent, ModalDetailInactif, ModalConfirm],
+  imports: [CommonModule, FormsModule, MembresAjoutsComponent, ModalConfirm, ModalDetailInactif],
   templateUrl: './membres-libres.html',
   styleUrls: ['./membres-libres.css'],
 })
@@ -21,8 +24,10 @@ export default class MembresLibresComponent {
   private modalService = inject(ModalServices);
   confirmMessage = signal('');
   selectedIdToDelete = signal<string | null>(null);
+  modalActiveIsOpen = signal(false);
   modalAjoutIsOpen = signal(false);
   modalConfirmIsOpen = signal(false);
+  modalDetailIsOpen = signal(false);
   // Idéalement membresLibres() et membresInactifs() sont déjà des signals
   // exposés par le service. S'ils ne le sont pas encore, wrap-les en signal.
   membresLibre = this.membreService.membresLibres;
@@ -32,15 +37,16 @@ export default class MembresLibresComponent {
   // ou mieux : model() si tu passes par un composant enfant.
   search = signal('');
   filterRole = signal('');
+  filteredListInactifs = computed(() => {
+    return this.filterList(this.membresInactifs());
+  });
   // Le filtrage devient dérivé automatiquement, plus besoin d'appeler
   // une méthode manuellement : dès que membresLibre, search ou filterRole
   // changent, filteredList se recalcule tout seul.
   filteredListLibres = computed(() => {
     return this.filterList(this.membresLibre());
   });
-  filteredListInactifs = computed(() => {
-    return this.filterList(this.membresInactifs());
-  });
+
   filterList(listMembre: Membre[]) {
     const term = this.search().toLowerCase();
     const role = this.filterRole();
@@ -51,14 +57,17 @@ export default class MembresLibresComponent {
       return rechercheOK && roleOK;
     });
   }
+
   openDetail(membre: Membre): void {
     this.selectedJoueur.set(membre);
+    this.modalDetailIsOpen.set(true);
   }
   closeModal(): void {
     this.selectedJoueur.set(null);
+    this.modalDetailIsOpen.set(false);
   }
-  deleteJoueur(id: string): void {
 
+  deleteJoueur(id: string): void {
     this.membreService.deleteMember(id).subscribe({
       next: () => this.modalService.success(`Supprimé avec succés `),
       error: () => this.modalService.error(`Erreur pour la suppression ! `),
@@ -67,7 +76,7 @@ export default class MembresLibresComponent {
     this.closeModalConfirm();
   }
   assignMemberToTeam(membre: Membre): void {
-    //TODO : modifier en modal quand services equipes ok , pour avoir un lenu déroulant des equipes a selectionné 
+    //TODO : modifier en modal quand services equipes ok , pour avoir un lenu déroulant des equipes a selectionné
     const equipeId = prompt("Identifiant de l'équipe :");
     if (!equipeId) return;
     this.membreService.assignMemberToTeam(membre, equipeId).subscribe({
@@ -89,12 +98,13 @@ export default class MembresLibresComponent {
       error: () =>
         this.modalService.error(`erreur pour l'activation de ${membre.prenom} ${membre.nom} `),
     });
+    this.closeModalActive();
     this.closeModal();
   }
   openModalAjout(): void {
     this.modalAjoutIsOpen.set(true);
   }
-  openModalConfirm(membre:Membre): void {
+  openModalConfirm(membre: Membre): void {
     this.confirmMessage.set(`Etes-vous sûr de rendre ${membre.prenom} ${membre.nom} inactif ?`);
     this.selectedIdToDelete.set(membre.id);
     this.modalConfirmIsOpen.set(true);
@@ -102,5 +112,13 @@ export default class MembresLibresComponent {
   closeModalConfirm(): void {
     this.selectedIdToDelete.set(null);
     this.modalConfirmIsOpen.set(false);
+  }
+  openModalActive(membre: Membre): void {
+    this.confirmMessage.set(`Etes-vous sûr de rendre ${membre.prenom} ${membre.nom} actif ?`);
+    this.selectedJoueur.set(membre);
+    this.modalActiveIsOpen.set(true);
+  }
+  closeModalActive(): void {
+    this.modalActiveIsOpen.set(false);
   }
 }
