@@ -1,18 +1,9 @@
-<!--
-  =========================================================
-  PAGE : MEMBRES LIBRES
-  =========================================================
--->
 <div class="page">
-  <!-- EN-TÊTE -->
   <div class="header">
     <h2>Joueurs libres</h2>
-    <p class="subtitle">
-      Membres sans équipe (joueurs, coachs, etc.)
-    </p>
+    <p class="subtitle">Membres sans équipe (joueurs, coachs, etc.)</p>
   </div>
 
-  <!-- STATISTIQUES -->
   <div class="stats">
     <div class="stat-card">
       <h3>{{ filteredListLibres().length }}</h3>
@@ -20,131 +11,48 @@
     </div>
   </div>
 
-  <!-- BARRE D'ACTIONS -->
-  <div class="actions-bar">
-    <input
-      type="text"
-      placeholder="Rechercher un membre..."
-      [ngModel]="search()"
-      (ngModelChange)="search.set($event)"
-      class="search-input"
-    />
-    <select
-      [ngModel]="filterRole()"
-      (ngModelChange)="filterRole.set($event)"
-      class="filter">
-      <option value="">Tous les rôles</option>
-      <option value="JOUEUR">Joueur</option>
-      <option value="COACH">Coach</option>
-      <option value="ADMIN">Admin</option>
-    </select>
-    <button
-      type="button"
-      class="btn-add"
-      (click)="openModalAjout()">
-      <i class="pi pi-plus"></i>
-      <span>Ajouter un membre</span>
-    </button>
-  </div>
+  <app-membres-filtres
+    [(search)]="search"
+    [(filterRole)]="filterRole"
+    (ajouter)="openModalAjout()"
+  />
 
-  <!-- TABLEAU : MEMBRES LIBRES -->
-  <div class="table">
-    <div class="row header">
-      <div>Nom</div>
-      <div>Rôle</div>
-      <div>Statut</div>
-      <div>Actions</div>
-    </div>
-    @if(filteredListLibres().length > 0){
-      @for(membre of filteredListLibres(); track membre.id){
-        <div class="row">
-          <div>
-            <span class="bold">
-              {{ membre.prenom }} {{ membre.nom }}
-            </span>
-          </div>
-          <div>
-            <span class="badge">
-              {{ membre.roles.join(', ') }}
-            </span>
-          </div>
-          <div>
-            <span class="status free">
-              LIBRE
-            </span>
-          </div>
-          <div class="actions">
-            <button type="button" (click)="openDetail(membre)">👁</button>
-            <button type="button" (click)="assignMemberToTeam(membre)">➕</button>
-            <button type="button" class="danger" (click)="openModalConfirm(membre)">🗑</button>
-          </div>
-        </div>
-      }
-    } @else {
-      <div class="row empty-row">
-        Aucun membre libre trouvé.
-      </div>
-    }
-  </div>
+  <app-membres-table
+    [membres]="filteredListLibres()"
+    type="libre"
+    emptyMessage="Aucun membre libre trouvé."
+    (detail)="openDetail($event)"
+    (assign)="assignMemberToTeam($event)"
+    (delete)="openModalConfirm($event)"
+  />
 
-  <!-- MEMBRES INACTIFS -->
   <h2 class="section-title">🚫 Membres inactifs</h2>
-  <div class="table inactive-table">
-    <div class="row header">
-      <div>Nom</div>
-      <div>Rôle</div>
-      <div>Statut</div>
-      <div>Actions</div>
-    </div>
-    @if(filteredListInactifs().length > 0){
-      @for(membre of filteredListInactifs(); track membre.id){
-        <div class="row">
-          <div>
-            <span class="bold">
-              {{ membre.prenom }} {{ membre.nom }}
-            </span>
-          </div>
-          <div>
-            <span class="badge">
-              {{ membre.roles.join(', ') }}
-            </span>
-          </div>
-          <div>
-            <span class="status inactive">
-              INACTIF
-            </span>
-          </div>
-          <div class="actions">
-            <button type="button" (click)="openDetail(membre)">👁</button>
-            <button type="button" class="restore" (click)="openModalActive(membre)">♻ Réactiver</button>
-          </div>
-        </div>
-      }
-    } @else {
-      <div class="row empty-row">
-        Aucun membre inactif.
-      </div>
-    }
-  </div>
-  </div>
+  <app-membres-table
+    [membres]="filteredListInactifs()"
+    type="inactif"
+    emptyMessage="Aucun membre inactif."
+    (detail)="openDetail($event)"
+    (activate)="openModalActive($event)"
+  />
+</div>
 
-  <!-- MODAL DETAILS -->
-  @if(modalDetailIsOpen()){
-    <app-modal-detail-inactif
-      [membre]="selectedJoueur()!"
-      (close)="closeModal()"
-      (activate)="openModalActive(selectedJoueur()!)"
-      (assign)="assignMemberToTeam($event)"
-      (delete)="openModalConfirm(selectedJoueur()!)"
-    />
-  }
-  @if(modalAjoutIsOpen()){
+@if (modalDetailIsOpen()) {
+  <app-modal-detail-inactif
+    [membre]="selectedJoueur()!"
+    (close)="closeModal()"
+    (activate)="openModalActive(selectedJoueur()!)"
+    (assign)="assignMemberToTeam($event)"
+    (delete)="openModalConfirm(selectedJoueur()!)"
+  />
+}
+
+@if (modalAjoutIsOpen()) {
   <app-membres-ajout
     (cancelmodal)="modalAjoutIsOpen.set(false)"
     (confirmmodal)="modalAjoutIsOpen.set(false)">
   </app-membres-ajout>
-
 }
+
 @if (modalConfirmIsOpen()) {
   <app-modal-confirm
     (cancel)="closeModalConfirm()"
@@ -152,6 +60,7 @@
     [message]="confirmMessage()">
   </app-modal-confirm>
 }
+
 @if (modalActiveIsOpen()) {
   <app-modal-confirm
     (cancel)="closeModalActive()"

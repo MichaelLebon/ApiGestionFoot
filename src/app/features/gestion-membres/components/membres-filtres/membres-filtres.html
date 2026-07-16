@@ -1,0 +1,18 @@
+<div class="actions-bar">
+  <input
+    type="text"
+    placeholder="Rechercher un membre..."
+    [(ngModel)]="search"
+    class="search-input"
+  />
+  <select [(ngModel)]="filterRole" class="filter">
+    <option value="">Tous les rôles</option>
+    <option value="JOUEUR">Joueur</option>
+    <option value="COACH">Coach</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+  <button type="button" class="btn-add" (click)="ajouter.emit()">
+    <i class="pi pi-plus"></i>
+    <span>Ajouter un membre</span>
+  </button>
+</div>

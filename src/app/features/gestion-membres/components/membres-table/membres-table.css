@@ -1,0 +1,137 @@
+/* =========================================================
+   TABLEAUX
+   ========================================================= */
+.table{
+  margin-top:20px;
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+
+.row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  align-items:center;
+  gap:10px;
+  padding:16px 18px;
+  border-bottom:1px solid #edf2f7;
+  transition: background .2s;
+}
+.row:last-child{
+  border-bottom:none;
+}
+.row:hover{
+  background:#f8fafc;
+}
+.row.header{
+  background:#0f172a;
+  color:#fff;
+  font-weight:600;
+}
+
+.empty-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  color:#64748b;
+}
+
+/* =========================================================
+   TEXTES
+   ========================================================= */
+.bold{
+  font-weight:700;
+  color:#1e293b;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 12px;
+  background:#e0f2fe;
+  color:#0284c7;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+}
+
+/* =========================================================
+   STATUTS
+   ========================================================= */
+.status{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+.status.free{
+  background:#dcfce7;
+  color:#15803d;
+}
+.status.inactive{
+  background:#fee2e2;
+  color:#dc2626;
+}
+
+/* =========================================================
+   ACTIONS DU TABLEAU
+   ========================================================= */
+.actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.actions button{
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:10px;
+  background:#f1f5f9;
+  cursor:pointer;
+  transition: transform .2s, background .2s;
+}
+.actions button:hover{
+  transform:translateY(-2px);
+  background:#e2e8f0;
+}
+.actions .danger{
+  background:#fee2e2;
+  color:#dc2626;
+}
+.actions .danger:hover{
+  background:#fecaca;
+}
+.actions .restore{
+  width:auto;
+  padding:0 14px;
+  background:#dcfce7;
+  color:#15803d;
+  font-weight:600;
+}
+.actions .restore:hover{
+  background:#bbf7d0;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width:900px){
+  .row{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .actions{
+    justify-content:flex-start;
+    flex-wrap:wrap;
+  }
+}

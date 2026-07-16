@@ -1,0 +1,103 @@
+/* =========================================================
+   BARRE D'ACTIONS
+   ========================================================= */
+.actions-bar{
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  width: fit-content;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.05);
+  margin-bottom: 24px;
+}
+
+/* =========================================================
+   CHAMP RECHERCHE
+   ========================================================= */
+.search-input{
+  flex: 0 0 300px;
+  width: 300px;
+  height: 46px;
+  padding: 0 16px;
+  border: 1px solid #dbe3ee;
+  border-radius: 10px;
+  background: white;
+  font-size: 14px;
+  transition: .25s;
+}
+.search-input:focus{
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* =========================================================
+   FILTRE
+   ========================================================= */
+.filter{
+  width:220px;
+  height:46px;
+  padding:0 14px;
+  border:1px solid #dbe3ee;
+  border-radius:10px;
+  background:white;
+  font-size:14px;
+  cursor:pointer;
+  transition:.25s;
+}
+.filter:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, .12);
+}
+
+/* =========================================================
+   BOUTON AJOUT
+   ========================================================= */
+.btn-add{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.65rem;
+  height:46px;
+  padding:0 22px;
+  border:none;
+  border-radius:10px;
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 10px 22px rgba(99,102,241,.28);
+}
+.btn-add i{
+  font-size:15px;
+}
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(99, 102, 241, .35);
+}
+.btn-add:active{
+  transform:scale(.97);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width:900px){
+  .actions-bar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .search-input,
+  .filter,
+  .btn-add{
+    width:100%;
+    margin-left:0;
+  }
+}
