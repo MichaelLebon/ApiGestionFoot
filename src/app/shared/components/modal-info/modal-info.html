@@ -2,8 +2,8 @@
   @for (modal of modals(); track modal.id) {
     <div class="flex items-center justify-between gap-3 px-4 py-3 rounded-xl shadow-lg pointer-events-auto text-sm font-medium"
          [ngClass]="{
-         'bg-emerald-600 text-white': modal.type === 'success',
-         'bg-red-500 text-white': modal.type === 'error',
+         'bg-emerald-200 text-white': modal.type === 'success',
+         'bg-red-600 text-white': modal.type === 'error',
          'bg-blue-600 text-white': modal.type === 'info',
          'bg-amber-500 text-white': modal.type === 'warning'
        }">

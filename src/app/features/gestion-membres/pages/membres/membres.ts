@@ -8,14 +8,12 @@ import { ModalConfirm } from '../../../../shared/components/modal-confirm/modal-
 import { MembresFiltresComponent } from '../../components/membres-filtres/membres-filtres';
 import { MembresTableComponent } from '../../components/membres-table/membres-table';
 import { ModalDetailMembre } from '../../components/modal-detail-membre/modal-detail-membre';
+import { ModalGenerique } from '../../../../shared/components/modal-generique/modal-generique';
+import { FormsModule } from '@angular/forms';
 
 export type RoleType = 'COACH' | 'JOUEUR' | 'ADMIN';
 
-const ROLES: RoleType[] = ['COACH', 'JOUEUR', 'ADMIN'];
 
-function isRoleType(value: string): value is RoleType {
-  return (ROLES as string[]).includes(value);
-}
 
 @Component({
   selector: 'app-membres',
@@ -26,11 +24,18 @@ function isRoleType(value: string): value is RoleType {
     MembresFiltresComponent,
     MembresTableComponent,
     ModalDetailMembre,
+    ModalGenerique,
+    FormsModule,
   ],
   templateUrl: './membres.html',
   styleUrls: ['./membres.css'],
 })
 export default class MembresComponent {
+  ROLES: RoleType[] = ['COACH', 'JOUEUR', 'ADMIN'];
+
+  isRoleType(value: string): value is RoleType {
+    return (this.ROLES as string[]).includes(value);
+  }
   membreService = inject(MembreService);
   modalService = inject(ModalServices);
 
@@ -53,6 +58,11 @@ export default class MembresComponent {
   confirmMessage = signal('');
   private pendingConfirmAction = signal<(() => void) | null>(null);
 
+  isAddMode = signal(true); // true = ajouter, false = retirer
+  isModalAssignOpen = signal(false);
+  selectedForRoles = signal<Membre | null>(null);
+  selectedRole = signal<RoleType>('JOUEUR');
+
   filterList(listMembre: Membre[]): Membre[] {
     const term = this.search().toLowerCase();
     const role = this.filterRole();
@@ -61,6 +71,17 @@ export default class MembresComponent {
       const fullName = `${membre.prenom} ${membre.nom}`.toLowerCase();
       return (!term || fullName.includes(term)) && (!role || membre.roles.includes(role));
     });
+  }
+  openModalAssign(membre: Membre) {
+    this.selectedForRoles.set(membre);
+    this.isModalAssignOpen.set(true);
+  }
+  closeModalAssign() {
+    this.isModalAssignOpen.set(false);
+    this.isModalAssignOpen.set(false);
+  }
+  onToggleMode(): void {
+    this.isAddMode.set(!this.isAddMode());
   }
 
   openDetail(membre: Membre): void {
@@ -118,29 +139,22 @@ export default class MembresComponent {
     });
   }
 
-  manageRoles(membre: Membre): void {
-    const action = prompt('1 = Ajouter / 2 = Supprimer');
-    if (!action) return;
+  manageRoles(): void {
+    const membre = this.selectedForRoles();
+    if (!membre) return;
 
-    const roleInput = prompt('ROLE (JOUEUR / COACH / ADMIN)');
-    if (!roleInput) return;
-
-    const role = roleInput.trim().toUpperCase();
-    if (!isRoleType(role)) {
-      this.modalService.error(`Rôle invalide : ${roleInput}`);
-      return;
-    }
-
-    if (action === '1') {
+    const role = this.selectedRole();
+    if (this.isAddMode()) {
       this.membreService.addRole(membre, role).subscribe({
         next: () => this.membreService.membresAffectesResource.reload(),
         error: () => this.modalService.error("Impossible d'ajouter le role : " + role),
       });
-    } else if (action === '2') {
+    } else {
       this.membreService.removeRole(membre, role).subscribe({
         next: () => this.membreService.membresAffectesResource.reload(),
         error: () => this.modalService.error('Impossible de retirer le role : ' + role),
       });
     }
+    this.closeModalAssign();
   }
 }

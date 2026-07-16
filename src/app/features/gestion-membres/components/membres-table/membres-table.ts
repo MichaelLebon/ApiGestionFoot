@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Membre } from '../../models/membre.model';
 
@@ -19,4 +19,5 @@ export class MembresTableComponent {
   delete = output<Membre>();
   activate = output<Membre>();
   manageRoles = output<Membre>();
+  modalIsOpen = output<Membre>();
 }

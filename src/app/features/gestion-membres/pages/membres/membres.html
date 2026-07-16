@@ -22,8 +22,8 @@
     type="affecte"
     emptyMessage="Pas de correspondance pour cette recherche."
     (detail)="openDetail($event)"
-    (manageRoles)="manageRoles($event)"
     (delete)="deleteMember($event)"
+    (modalIsOpen)="openModalAssign($event)"
   />
 </div>
 
@@ -31,7 +31,7 @@
   <app-modal-detail-membre
     [membre]="selectedMember()!"
     (close)="closeModal()"
-    (manageRoles)="manageRoles($event)"
+    (manageRoles)="openModalAssign(selectedMember()!)"
     (delete)="deleteMember($event)"
     (removeFromTeam)="removeFromTeam($event)"
   />
@@ -43,4 +43,41 @@
     (confirm)="confirmAction()"
     [message]="confirmMessage()">
   </app-modal-confirm>
+}
+
+@if (isModalAssignOpen()){
+  <app-modal-generique
+    (confirm)="manageRoles()"
+    (cancel)="closeModalAssign()">
+    <div class="mode-switch">
+      <div class="mode-toggle">
+        <button
+          type="button"
+          class="mode-btn add"
+          [class.active]="isAddMode()"
+          (click)="isAddMode() || onToggleMode()">
+          ➕ Ajouter
+        </button>
+        <button
+          type="button"
+          class="mode-btn remove"
+          [class.active]="!isAddMode()"
+          (click)="!isAddMode() || onToggleMode()">
+          ➖ Retirer
+        </button>
+      </div>
+    </div>
+
+    <div class="role-select">
+      <label for="role">Rôle</label>
+      <select
+        id="role"
+        [ngModel]="selectedRole()"
+        (ngModelChange)="selectedRole.set($event)">
+        @for (role of ROLES; track role) {
+          <option [value]="role">{{ role }}</option>
+        }
+      </select>
+    </div>
+  </app-modal-generique>
 }

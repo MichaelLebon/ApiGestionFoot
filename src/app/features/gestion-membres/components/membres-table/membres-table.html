@@ -39,7 +39,7 @@
           } @else if (type() === 'inactif') {
             <button type="button" class="restore" (click)="activate.emit(membre)">♻ Réactiver</button>
           } @else {
-            <button type="button" (click)="manageRoles.emit(membre)">🧩</button>
+            <button type="button" (click)="modalIsOpen.emit(membre)">🧩</button>
             <button type="button" class="danger" (click)="delete.emit(membre)">🗑</button>
           }
         </div>
@@ -49,3 +49,4 @@
     <div class="row empty-row">{{ emptyMessage() }}</div>
   }
 </div>
+

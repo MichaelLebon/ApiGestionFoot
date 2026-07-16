@@ -71,3 +71,94 @@
   font-weight:700;
   color:#1e293b;
 }
+
+/* =========================================================
+   SECTION beau button trop joli ma gueule
+   ========================================================= */
+.mode-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mode-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  border: 2px solid #dbe3ee;
+  border-radius: 12px;
+  background: #fff;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s, border-color .2s, color .2s;
+}
+
+.mode-btn:hover {
+  transform: translateY(-2px);
+}
+
+.mode-btn.add.active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(99, 102, 241, .3);
+}
+
+.mode-btn.remove.active {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(220, 38, 38, .3);
+}
+
+.mode-btn:active {
+  transform: scale(.97);
+}
+
+.role-select {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.role-select label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.role-select select {
+  height: 46px;
+  padding: 0 40px 0 16px;
+  border: 2px solid #dbe3ee;
+  border-radius: 12px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%2364748b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center,
+    #fff;
+  background-size: 12px;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.role-select select:hover {
+  border-color: #c7d2e0;
+}
+
+.role-select select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, .12);
+}
