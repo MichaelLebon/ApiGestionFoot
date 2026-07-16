@@ -11,8 +11,10 @@
     <option value="COACH">Coach</option>
     <option value="ADMIN">Admin</option>
   </select>
-  <button type="button" class="btn-add" (click)="ajouter.emit()">
-    <i class="pi pi-plus"></i>
-    <span>Ajouter un membre</span>
-  </button>
+  @if (showAddButton()) {
+    <button type="button" class="btn-add" (click)="ajouter.emit()">
+      <i class="pi pi-plus"></i>
+      <span>Ajouter un membre</span>
+    </button>
+  }
 </div>

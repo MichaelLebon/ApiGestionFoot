@@ -31,6 +31,10 @@
   font-weight:600;
 }
 
+.row.with-equipe {
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+}
+
 .empty-row{
   display:flex;
   justify-content:center;
@@ -81,6 +85,11 @@
 .status.inactive{
   background:#fee2e2;
   color:#dc2626;
+}
+
+.status.club {
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 /* =========================================================

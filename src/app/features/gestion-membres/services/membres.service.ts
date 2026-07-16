@@ -3,6 +3,7 @@ import { HttpClient, httpResource } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Membre, MembreRequest } from '../models/membre.model';
 import { pipe, tap } from 'rxjs';
+import { RoleType } from '../pages/membres/membres';
 
 /**
  * Service gérant les opérations liées aux membres.
@@ -56,6 +57,19 @@ export class MembreService {
   }
   activateMember(membre: Membre) {
     return this.http.put<Membre>(`${this.apiUrl}/${membre.id}/activate`, {}).pipe(tap(() => this.reload()));
+  }
+
+  removeFromTeam(membre: Membre) {
+    return this.http.delete(`${this.apiUrl}/${membre.id}/equipes`)
+      .pipe(tap(() => this.reload()));
+  }
+
+  addRole(membre: Membre, role: RoleType) {
+    return this.http.post(`${this.apiUrl}/${membre.id}/roles/${role}`, {})
+  }
+
+  removeRole(membre: Membre, role: RoleType) {
+    return this.http.delete(`${this.apiUrl}/${membre.id}/roles/${role}`);
   }
 
   private reload(){

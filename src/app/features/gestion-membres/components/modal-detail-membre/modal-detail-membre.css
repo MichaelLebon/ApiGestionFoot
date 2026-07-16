@@ -1,0 +1,90 @@
+/* =====================================
+   MODAL (Fenêtre Surgissante)
+   Utilisation de backdrop-filter pour flouter l'arrière-plan.
+===================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+}
+
+.modal-card {
+  width: 460px;
+  max-width: 92%;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.modal-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.info label {
+  font-size: 11px;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.info p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: #f8fafc;
+}
+
+.modal-actions button {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-actions button:not(.danger) {
+  background: #2563eb;
+  color: white;
+}
+
+.modal-actions button:not(.danger):hover {
+  background: #1d4ed8;
+}
+
+.modal-actions .danger {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-actions .danger:hover {
+  background: #dc2626;
+}

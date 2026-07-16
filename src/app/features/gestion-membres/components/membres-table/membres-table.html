@@ -1,29 +1,46 @@
 <div class="table" [class.inactive-table]="type() === 'inactif'">
-  <div class="row header">
+  <div class="row header" [class.with-equipe]="type() === 'affecte'">
     <div>Nom</div>
-    <div>Rôle</div>
+    <div>Rôle{{ type() === 'affecte' ? 's' : '' }}</div>
     <div>Statut</div>
+    @if (type() === 'affecte') {
+      <div>Équipe</div>
+    }
     <div>Actions</div>
   </div>
+
   @if (membres().length > 0) {
     @for (membre of membres(); track membre.id) {
-      <div class="row">
+      <div class="row" [class.with-equipe]="type() === 'affecte'">
         <div><span class="bold">{{ membre.prenom }} {{ membre.nom }}</span></div>
         <div><span class="badge">{{ membre.roles.join(', ') }}</span></div>
         <div>
           @if (type() === 'libre') {
             <span class="status free">LIBRE</span>
-          } @else {
+          } @else if (type() === 'inactif') {
             <span class="status inactive">INACTIF</span>
+          } @else {
+            <span
+              class="status"
+              [class.free]="membre.statut === 'LIBRE'"
+              [class.club]="membre.statut === 'EN_CLUB'">
+              {{ membre.statut }}
+            </span>
           }
         </div>
+        @if (type() === 'affecte') {
+          <div>{{ membre.equipe || 'Aucune équipe' }}</div>
+        }
         <div class="actions">
           <button type="button" (click)="detail.emit(membre)">👁</button>
           @if (type() === 'libre') {
             <button type="button" (click)="assign.emit(membre)">➕</button>
             <button type="button" class="danger" (click)="delete.emit(membre)">🗑</button>
-          } @else {
+          } @else if (type() === 'inactif') {
             <button type="button" class="restore" (click)="activate.emit(membre)">♻ Réactiver</button>
+          } @else {
+            <button type="button" (click)="manageRoles.emit(membre)">🧩</button>
+            <button type="button" class="danger" (click)="delete.emit(membre)">🗑</button>
           }
         </div>
       </div>

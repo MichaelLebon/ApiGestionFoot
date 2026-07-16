@@ -1,4 +1,4 @@
-import { Component, model, output } from '@angular/core';
+import { Component, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './membres-filtres.html',
-  styleUrls: ['./membres-filtres.css']
+  styleUrls: ['./membres-filtres.css'],
 })
 export class MembresFiltresComponent {
   search = model('');
   filterRole = model('');
+  showAddButton = input(true);
   ajouter = output<void>();
 }
