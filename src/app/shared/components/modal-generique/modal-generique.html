@@ -1,0 +1,12 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <!-- Contenu injecté par le parent -->
+    <ng-content></ng-content>
+
+    <!-- Boutons d'office -->
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="cancel.emit()">Annuler</button>
+      <button class="btn-confirm" (click)="confirm.emit()">Confirmer</button>
+    </div>
+  </div>
+</div>
