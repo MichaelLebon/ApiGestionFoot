@@ -1,1 +1,85 @@
-<p>clubs works!</p>
+<div class="page">
+  <!-- TITRE -->
+  <h1>
+    Gestion des clubs
+  </h1>
+  <!-- STATISTIQUE -->
+  <div class="stats-card">
+    <div class="stat-icon">
+      <i class="pi pi-shield"></i>
+    </div>
+    <div class="stat-content">
+      <span>
+        Total clubs
+      </span>
+      <strong>
+        {{ totalClubs }}
+      </strong>
+    </div>
+  </div>
+  <!-- FILTRES -->
+  <app-club-filtres
+    (filtersChange)="onFiltersChange($event)">
+  </app-club-filtres>
+  <!-- BOUTON AJOUT -->
+  <div class="add-container">
+    <button
+     class="btn-add"
+      (click)="openAddModal()">
+     <i class="pi pi-plus"></i>
+      Ajouter un club
+    </button>
+  </div>
+  <!-- TABLEAU -->
+  <app-club-table
+    [clubs]="filteredClubs"
+    (detail)="openDetail($event)"
+    (delete)="supprimerClub($event)">
+  </app-club-table>
+  <!-- MODAL DETAIL -->
+  <app-modal-detail-club
+    [visible]="detailVisible"
+    [club]="selectedClub"
+    (close)="closeDetail()">
+  </app-modal-detail-club>
+  <!-- MODAL AJOUT -->
+  @if (addModalVisible) {
+    <div class="modal-overlay">
+      <div class="modal">
+        <h2>
+         Ajouter un club
+        </h2>
+        <div class="form-group">
+          <label>
+            Nom du club
+          </label>
+          <input
+            type="text"
+            [(ngModel)]="newClub.nom"
+            placeholder="Nom du club">
+       </div>
+        <div class="form-group">
+          <label>
+            Localisation
+          </label>
+          <input
+            type="text"
+            [(ngModel)]="newClub.local"
+            placeholder="Ville">
+        </div>
+        <div class="modal-actions">
+          <button
+           class="btn-cancel"
+            (click)="closeAddModal()">
+            Annuler
+          </button>
+          <button
+            class="btn-save"
+            (click)="addClub()">
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

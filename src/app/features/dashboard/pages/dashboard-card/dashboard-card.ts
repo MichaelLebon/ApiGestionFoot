@@ -9,8 +9,8 @@ import { KeycloakStore } from '../../../../module/keycloak/keycloak-store';
 /**
  * Composant de carte de tableau de bord.
  *
- * Affiche les statistiques globales de l'application récupérées depuis le service Dashboard.
- * Gère également l'affichage du profil de l'utilisateur connecté via Keycloak.
+ * Affiche les statistiques globales de l'application.
+ * Permet la navigation vers les différentes sections.
  */
 @Component({
   selector: 'app-dashboard-card',
@@ -20,16 +20,19 @@ import { KeycloakStore } from '../../../../module/keycloak/keycloak-store';
   standalone: true,
 })
 export default class DashboardCard implements OnInit {
-  /** Statistiques du tableau de bord (membres, équipes, matchs, etc.). */
+  /** Statistiques du tableau de bord */
   stats: DashboardStats | null = null;
-  /** État de chargement des données. */
+
+  /** Chargement des données */
   loading = true;
 
-  /** Store Keycloak pour accéder aux données utilisateur. */
+  /** Store Keycloak */
   readonly keycloakStore = inject(KeycloakStore);
-  /** Signal calculé pour les informations utilisateur. */
+
+  /** Informations utilisateur */
   readonly user = computed(() => this.keycloakStore.user());
-  /** Signal calculé pour le nom d'utilisateur. */
+
+  /** Nom utilisateur */
   readonly username = computed(() => this.keycloakStore.username());
 
   constructor(
@@ -39,8 +42,7 @@ export default class DashboardCard implements OnInit {
   ) {}
 
   /**
-   * Initialise le composant en récupérant les statistiques via le DashboardService.
-   * Utilise ChangeDetectorRef pour forcer la mise à jour de la vue après la réception des données.
+   * Chargement des statistiques au démarrage
    */
   ngOnInit(): void {
     console.log('Dashboard init');
@@ -49,34 +51,50 @@ export default class DashboardCard implements OnInit {
       next: (data) => {
         this.stats = data;
         this.loading = false;
+
         this.cdr.detectChanges();
       },
+
       error: (err) => {
         console.error('ERREUR API', err);
+
         this.loading = false;
       },
     });
   }
 
   /**
-   * Retourne le nom à afficher pour l'utilisateur.
-   *
-   * @returns Le nom d'utilisateur Keycloak ou une valeur par défaut.
+   * Nom affiché dans le dashboard
    */
   displayName(): string {
     return this.username() ?? this.user()?.username ?? this.user()?.firstName ?? 'Utilisateur';
   }
 
   /**
-   * Navigue vers la page de liste des membres.
+   * Navigation vers les membres
    */
   goToMembers(): void {
-    console.log(this.router.navigate(['/membres/affectes']));
+    this.router.navigate(['/membres/affectes']);
   }
 
+  /**
+   * Navigation vers les équipes
+   */
   goToEquipes(): void {
-    console.log(this.router.navigate(['/equipes']));
+    this.router.navigate(['/equipes']);
+  }
+
+  /**
+   * Navigation vers les clubs
+   */
+  goToClubs(): void {
+    this.router.navigate(['/clubs']);
+  }
+
+  /**
+   * Navigation vers les matchs
+   */
+  goToMatchs(): void {
+    this.router.navigate(['/matchs']);
   }
 }
-
-

@@ -2,49 +2,140 @@
   Tableau de bord (Composant DashboardCard).
   Ce fichier gère l'affichage des statistiques globales de l'application.
 -->
+
 <div class="dashboard-header">
-  <h1>Tableau de bord</h1>
-  <p>Bienvenue {{ displayName() }} 👋</p>
+
+  <h1>
+    Tableau de bord
+  </h1>
+
+  <p>
+    Bienvenue {{ displayName() }} 👋
+  </p>
+
 </div>
 
-<!-- Affichage conditionnel pendant le chargement des données -->
+
+
+<!-- Affichage conditionnel pendant le chargement -->
+
 @if(loading){
-<div>
-  Chargement des statistiques...
-</div>
+
+  <div>
+    Chargement des statistiques...
+  </div>
+
+
 } @else if (stats) {
 
-<!--
-  Conteneur de statistiques :
-  S'affiche uniquement quand le chargement est terminé et que les données (stats) existent.
--->
-  <div class="dashboard" >
 
-  <!-- Carte statistique cliquable redirigeant vers la liste des membres -->
-  <div class="stat-card clickable" (click)="goToMembers()">
-    <span>👥</span>
-    <h3>Membres</h3>
-    <p>{{ stats.membres }}</p>
+  <div class="dashboard">
+
+
+
+    <!-- ================================
+         MEMBRES
+         ================================ -->
+
+    <div
+      class="stat-card clickable"
+      (click)="goToMembers()">
+
+    <span>
+      👥
+    </span>
+
+      <h3>
+        Membres
+      </h3>
+
+      <p>
+        {{ stats.membres }}
+      </p>
+
+    </div>
+
+
+
+
+
+    <!-- ================================
+         EQUIPES
+         ================================ -->
+
+    <div
+      class="stat-card clickable"
+      (click)="goToEquipes()">
+
+    <span>
+      ⚽
+    </span>
+
+      <h3>
+        Équipes
+      </h3>
+
+      <p>
+        {{ stats.equipes }}
+      </p>
+
+    </div>
+
+
+
+
+
+    <!-- ================================
+         CLUBS
+         ================================ -->
+
+    <div
+      class="stat-card clickable"
+      (click)="goToClubs()">
+
+    <span>
+      🏟️
+    </span>
+
+      <h3>
+        Clubs
+      </h3>
+
+      <p>
+        {{ stats.clubs }}
+      </p>
+
+    </div>
+
+
+
+
+
+    <!-- ================================
+         MATCHS A VENIR
+         ================================ -->
+
+    <div
+      class="stat-card clickable"
+      (click)="goToMatchs()">
+
+    <span>
+      📅
+    </span>
+
+      <h3>
+        Matchs à venir
+      </h3>
+
+      <p>
+        {{ stats.matchsAVenir }}
+      </p>
+
+    </div>
+
+
+
   </div>
 
-  <!-- Cartes statistiques informatives -->
-  <div class="stat-card" (click)="goToEquipes()">
-    <span>⚽</span>
-    <h3>Équipes</h3>
-    <p>{{ stats.equipes }}</p>
-  </div>
 
-  <div class="stat-card">
-    <span>📅</span>
-    <h3>Matchs à venir</h3>
-    <p>{{ stats.matchsAVenir }}</p>
-  </div>
-
-  <div class="stat-card">
-    <span>🏆</span>
-    <h3>Compétitions</h3>
-    <p>{{ stats.competitions }}</p>
-  </div>
-
-</div>
 }

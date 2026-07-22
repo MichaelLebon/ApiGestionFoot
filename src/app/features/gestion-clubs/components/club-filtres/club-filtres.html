@@ -1,1 +1,24 @@
-<p>club-filtres works!</p>
+<div class="filters-card">
+  <div class="filter-group">
+    <label for="nom">
+      Nom du club
+    </label>
+    <input
+      id="nom"
+      type="text"
+      [(ngModel)]="nom"
+      (input)="emitFilters()"
+      placeholder="Rechercher un club...">
+  </div>
+  <div class="filter-group">
+    <label for="local">
+      Local
+    </label>
+    <input
+      id="local"
+      type="text"
+      [(ngModel)]="local"
+      (input)="emitFilters()"
+      placeholder="Rechercher une ville...">
+  </div>
+</div>

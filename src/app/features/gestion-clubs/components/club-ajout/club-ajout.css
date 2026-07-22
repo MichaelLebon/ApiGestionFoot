@@ -1,0 +1,135 @@
+/* =========================================================
+   AJOUT CLUB
+   ========================================================= */
+.add-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.05);
+}
+/* =========================================================
+   HEADER
+   ========================================================= */
+.card-header {
+  margin-bottom: 24px;
+}
+.card-header h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+.card-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: .95rem;
+}
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* =========================================================
+   CHAMPS
+   ========================================================= */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  font-size: .95rem;
+  font-weight: 600;
+  color: #334155;
+}
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #fff;
+  font-size: .95rem;
+  transition: all .25s ease;
+}
+.form-group input::placeholder {
+  color: #94a3b8;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
+}
+/* =========================================================
+   BOUTONS
+   ========================================================= */
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+/* =========================================================
+   BOUTON AJOUT
+   ========================================================= */
+.btn-primary {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, .25);
+}
+.btn-primary:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+/* =========================================================
+   BOUTON ANNULER
+   ========================================================= */
+.btn-secondary {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 24px;
+  background: #fff;
+  color: #334155;
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 768px) {
+  .add-card {
+    padding: 18px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}

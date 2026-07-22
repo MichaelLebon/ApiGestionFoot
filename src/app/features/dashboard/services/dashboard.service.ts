@@ -7,10 +7,16 @@ import { HttpClient } from '@angular/common/http';
 export interface DashboardDto {
   /** Nombre total de membres */
   membres: number;
+
   /** Nombre total d'équipes */
   equipes: number;
+
+  /** Nombre total de clubs */
+  clubs: number;
+
   /** Nombre de matchs à venir */
   matchsAVenir: number;
+
   /** Nombre de compétitions en cours ou à venir */
   competitions: number;
 }
@@ -18,7 +24,9 @@ export interface DashboardDto {
 /**
  * Service gérant la récupération des données du tableau de bord.
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root',
+})
 export class DashboardService {
   /** URL de l'API pour les statistiques du tableau de bord */
   private apiUrl = 'http://localhost:8080/api/dashboard/stats';
@@ -30,6 +38,7 @@ export class DashboardService {
 
   /**
    * Récupère les statistiques globales pour le tableau de bord.
+   *
    * @returns Un Observable contenant les statistiques du tableau de bord.
    */
   getStats() {

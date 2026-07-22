@@ -1,1 +1,39 @@
-<p>club-table works!</p>
+<table class="club-table">
+  <thead>
+  <tr>
+    <th>Nom</th>
+    <th>Local</th>
+    <th>Équipes</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    @for (club of clubs; track club.nom) {
+      <tr>
+        <td>{{ club.nom }}</td>
+        <td>{{ club.local }}</td>
+        <td>{{ club.equipes.length }}</td>
+        <td class="actions">
+          <button
+            class="btn-detail"
+            type="button"
+            (click)="voirDetail(club)">
+            Détails
+          </button>
+          <button
+            class="btn-delete"
+            type="button"
+            (click)="supprimer(club)">
+            Supprimer
+          </button>
+      </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4" class="empty">
+         Aucun club trouvé.
+      </td>
+     </tr>
+    }
+  </tbody>
+</table>

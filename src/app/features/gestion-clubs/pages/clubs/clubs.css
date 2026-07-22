@@ -1,0 +1,201 @@
+/* =========================================================
+   PAGE GESTION DES CLUBS
+   ========================================================= */
+.page {
+  min-height:100vh;
+  padding:2rem;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(37,99,235,.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(59,130,246,.12),
+      transparent 25%
+    ),
+    linear-gradient(
+      180deg,
+      #f8fafc 0%,
+      #eef4ff 100%
+    );
+}
+/* =========================================================
+   TITRE
+   ========================================================= */
+.page h1 {
+  margin:0 0 2rem;
+  font-size:2rem;
+  font-weight:700;
+  color:#1e293b;
+}
+/* =========================================================
+   CARTE STATISTIQUE
+   ========================================================= */
+.stats-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 260px;
+  padding: 18px;
+  margin-bottom: 24px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-size: 22px;
+}
+.stat-content span {
+  display: block;
+  color: #64748b;
+  font-size: .9rem;
+}
+.stat-content strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 2rem;
+  color: #1e293b;
+}
+/* =========================================================
+   COMPOSANTS
+   ========================================================= */
+app-club-filtres,
+app-club-table {
+  display:block;
+  margin-bottom:24px;
+}
+/* =========================================================
+   BOUTON AJOUT CLUB
+  ========================================================= */
+.add-container {
+  margin-bottom: 24px;
+}
+.btn-add {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .2s;
+}
+.btn-add:hover {
+  background:#1d4ed8;
+}
+/* =========================================================
+   MODAL
+   ========================================================= */
+.modal-overlay {
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.45);
+  z-index:1000;
+}
+.modal {
+  width: 420px;
+  padding: 25px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .20);
+}
+.modal h2 {
+  margin-top: 0;
+  color: #1e293b;
+}
+/* =========================================================
+   FORMULAIRE
+   ========================================================= */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+}
+.form-group label {
+  font-weight: 600;
+  color: #334155;
+}
+.form-group input {
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #cbd5e1;
+  outline:none;
+}
+.form-group input:focus {
+  border-color: #2563eb;
+}
+/* =========================================================
+   ACTIONS MODAL
+   ========================================================= */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+.btn-save {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #16a34a;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-cancel {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #e2e8f0;
+  color: #334155;
+  cursor: pointer;
+}
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media(max-width:992px){
+  .page {
+   padding:1.5rem;
+  }
+}
+@media(max-width:768px) {
+  .page {
+    padding: 1rem;
+  }
+  .page h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .stats-card {
+    width: 100%;
+  }
+ .modal {
+    width: 90%;
+  }
+}
+@media(max-width:480px){
+  .page {
+    padding:.75rem;
+  }
+}

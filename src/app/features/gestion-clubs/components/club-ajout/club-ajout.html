@@ -1,1 +1,46 @@
-<p>club-ajout works!</p>
+<div class="add-card">
+  <div class="card-header">
+    <h2>Ajouter un club</h2>
+    <p>Créer un nouveau club de football.</p>
+  </div>
+  <form (ngSubmit)="ajouterClub()" #clubForm="ngForm">
+    <div class="form-group">
+      <label for="nom">Nom du club</label>
+      <input
+        id="nom"
+        name="nom"
+        type="text"
+        [(ngModel)]="club.nom"
+        required
+        minlength="3"
+        maxlength="30"
+        placeholder="Ex : Royal FC Liège">
+    </div>
+    <div class="form-group">
+      <label for="local">Local</label>
+      <input
+        id="local"
+        name="local"
+        type="text"
+        [(ngModel)]="club.local"
+        required
+        minlength="3"
+        maxlength="30"
+        placeholder="Ex : Liège">
+    </div>
+    <div class="buttons">
+      <button
+       class="btn-primary"
+        type="submit"
+        [disabled]="clubForm.invalid || loading">
+        {{ loading ? 'Ajout...' : 'Ajouter le club' }}
+      </button>
+      <button
+        class="btn-secondary"
+        type="button"
+        (click)="reset()">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
