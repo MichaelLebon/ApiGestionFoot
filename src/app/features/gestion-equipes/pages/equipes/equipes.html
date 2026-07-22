@@ -1,0 +1,73 @@
+<div class="page">
+  <div class="header">
+    <h2>Gestion des équipes</h2>
+    <p class="subtitle">
+      Administration des équipes
+    </p>
+  </div>
+  <div class="stats">
+    <div class="stat-card">
+      <h3>{{ filteredList().length }}</h3>
+      <p>Total équipes</p>
+    </div>
+  </div>
+  <app-equipes-filtres
+    [(search)]="search"
+    [(filterCategorie)]="filterCategorie"
+    (ajouter)="openModalAjout()">
+  </app-equipes-filtres>
+  <app-equipes-table
+    [equipes]="filteredList()"
+    emptyMessage="Aucune équipe trouvée."
+    (detail)="openDetail($event)"
+    (delete)="deleteEquipe($event)"
+    (modalIsOpen)="openModalClub($event)">
+  </app-equipes-table>
+</div>
+@if (selectedEquipe()) {
+  <app-modal-detail-equipe
+    [equipe]="selectedEquipe()!"
+    (close)="closeModal()"
+    (changeClub)="openModalClub(selectedEquipe()!)"
+    (delete)="deleteEquipe($event)">
+  </app-modal-detail-equipe>
+}
+@if (modalConfirmIsOpen()) {
+  <app-modal-confirm
+    [message]="confirmMessage()"
+    (cancel)="closeConfirm()"
+    (confirm)="confirmAction()">
+  </app-modal-confirm>
+}
+@if (isModalClubOpen()) {
+  <app-modal-generique
+    (cancel)="closeModalClub()"
+    (confirm)="assignClub()">
+
+    <div class="club-select">
+
+      <label for="club">
+        Club
+      </label>
+
+      <select
+        id="club"
+        [ngModel]="selectedClubId()"
+        (ngModelChange)="selectedClubId.set($event)">
+
+        <!--
+        @for (club of clubs(); track club.id) {
+          <option [value]="club.id">
+            {{ club.nom }}
+          </option>
+        }
+        -->
+      </select>
+    </div>
+  </app-modal-generique>
+}
+  @if (isModalAddOpen()) {
+    <app-equipes-ajout>
+    </app-equipes-ajout>
+
+}

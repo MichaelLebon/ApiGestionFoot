@@ -1,0 +1,58 @@
+<div class="table">
+  <div class="row header">
+    <div>Nom</div>
+    <div>Catégorie</div>
+    <div>Club</div>
+    <div>Actions</div>
+  </div>
+  @if (equipes().length > 0) {
+    @for (equipe of equipes(); track equipe.id) {
+      <div class="row">
+        <div>
+          <span class="bold">
+            {{ equipe.nom }}
+          </span>
+        </div>
+        <div>
+          <span class="badge">
+            {{ equipe.categorie }}
+          </span>
+        </div>
+        <div>
+          @if (equipe.nom_du_club) {
+            {{ equipe.nom_du_club }}
+          } @else {
+            <span class="empty">
+              Aucun club
+            </span>
+          }
+        </div>
+        <div class="actions">
+          <button
+            type="button"
+            title="Voir les détails"
+            (click)="detail.emit(equipe)">
+            👁
+          </button>
+          <button
+            type="button"
+            title="Changer le club"
+            (click)="modalIsOpen.emit(equipe)">
+            🏟
+          </button>
+          <button
+            type="button"
+            class="danger"
+            title="Supprimer"
+            (click)="delete.emit(equipe.id)">
+            🗑
+          </button>
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="row empty-row">
+      {{ emptyMessage() }}
+    </div>
+  }
+</div>

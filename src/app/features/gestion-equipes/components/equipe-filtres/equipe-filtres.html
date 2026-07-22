@@ -1,0 +1,25 @@
+<div class="actions-bar">
+    <input
+      type="text"
+      placeholder="Rechercher une équipe..."
+      [(ngModel)]="search"
+      class="search-input" />
+  <select [(ngModel)]="filterCategorie" class="filter">
+    <option value="">Toutes les catégories</option>
+    <option value="SENIOR">Senior</option>
+    <option value="U21">U21</option>
+    <option value="U18">U18</option>
+    <option value="U15">U15</option>
+    <option value="U13">U13</option>
+    <option value="U11">U11</option>
+    <option value="U9">U9</option>
+  </select>
+@if (showAddButton()) {
+  <button type="button" class="btn-add" (click)="ajouter.emit()">
+    <i class="pi pi-plus"></i>
+    <span>Ajouter une équipe</span>
+  </button>
+}
+</div>
+
+

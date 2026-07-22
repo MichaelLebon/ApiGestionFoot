@@ -77,7 +77,6 @@ export class MenubarBasicDemo implements OnInit {
         icon: 'pi pi-sitemap',
         items: [
           { label: 'Liste des équipes', icon: 'pi pi-users', routerLink: '/equipes' },
-          { label: 'Créer une équipe', icon: 'pi pi-plus-circle', routerLink: '/equipes/create' },
         ],
       },
 
@@ -88,12 +87,6 @@ export class MenubarBasicDemo implements OnInit {
           { label: 'Calendrier', icon: 'pi pi-calendar', routerLink: '/matchs' },
           { label: 'Nouveau match', icon: 'pi pi-plus', routerLink: '/matchs/create' },
         ],
-      },
-
-      {
-        label: 'Paramètres',
-        icon: 'pi pi-cog',
-        routerLink: '/settings',
       },
     ];
   }

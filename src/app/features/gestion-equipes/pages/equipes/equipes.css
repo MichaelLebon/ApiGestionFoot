@@ -1,0 +1,197 @@
+/* =========================================================
+   PAGE PRINCIPALE
+   ========================================================= */
+.page {
+  padding: 2rem;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+ background:
+    radial-gradient(circle at 20% 20%, rgba(0,188,252,.18), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(37,99,235,.15), transparent 30%),
+    linear-gradient(135deg,#f8fbff,#eef6ff,#e3f4ff);
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(37,99,235,.15);
+  color:#0f172a;
+}
+/* =========================================================
+   HEADER
+   ========================================================= */
+.header {
+  margin-bottom:10px;
+}
+.header h2 {
+  margin:0;
+  font-size:28px;
+  font-weight:700;
+}
+.subtitle {
+  margin-top:6px;
+  color:#64748b;
+  font-size:14px;
+}
+/* =========================================================
+   STATISTIQUES
+   ========================================================= */
+.stats {
+  display:flex;
+  gap:20px;
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.stat-card {
+  min-width: 180px;
+  padding: 18px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
+  text-align: center;
+}
+.stat-card h3 {
+  margin:0;
+  font-size:30px;
+  font-weight:700;
+  color:#1e293b;
+}
+.stat-card p {
+  margin-top:8px;
+  color:#64748b;
+  font-size:13px;
+}
+/* =========================================================
+   FILTRES EQUIPES
+   ========================================================= */
+.filter-container {
+  display:flex;
+ align-items:center;
+  gap:16px;
+  margin-bottom:25px;
+  padding:16px 18px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+ border-radius:16px;
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.05);
+}
+.filter-container input,
+.filter-container select {
+  height:42px;
+  padding:0 14px;
+  border-radius:12px;
+  border:2px solid #dbe3ee;
+  background:#fff;
+  font-size:14px;
+  color:#1e293b;
+  transition:.2s;
+}
+.filter-container input {
+  flex:1;
+}
+.filter-container input:focus,
+.filter-container select:focus {
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:
+    0 0 0 4px rgba(99,102,241,.12);
+}
+/* =========================================================
+   BOUTON AJOUT EQUIPE
+   ========================================================= */
+.add-btn {
+  height:42px;
+  padding:0 20px;
+  border:none;
+  border-radius:12px;
+  background:
+   linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+ font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.2s;
+}
+.add-btn:hover {
+  transform:translateY(-2px);
+  box-shadow:
+   0 10px 20px rgba(99,102,241,.3);
+}
+.add-btn:active {
+  transform:scale(.97);
+}
+/* =========================================================
+   TABLE EQUIPES
+   ========================================================= */
+.table {
+  width:100%;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  border:1px solid #e2e8f0;
+ box-shadow:
+    0 10px 25px rgba(0,0,0,.06);
+}
+.row {
+  display:grid;
+  grid-template-columns:
+   2fr 1fr 1.5fr 160px;
+  align-items:center;
+  padding:16px 20px;
+  border-bottom:1px solid #e2e8f0;
+}
+.row:last-child {
+  border-bottom:none;
+}
+.row.header {
+ background:#f8fafc;
+  font-weight:700;
+  color:#475569;
+}
+.row:hover:not(.header) {
+  background:#f8fbff;
+}
+.bold {
+  font-weight:700;
+}
+/* =========================================================
+   BADGES
+   ========================================================= */
+.badge {
+ display:inline-flex;
+  padding:5px 12px;
+  border-radius:999px;
+ background:#eef2ff;
+  color:#4338ca;
+  font-size:12px;
+  font-weight:700;
+}
+/* =========================================================
+  ACTIONS
+   ========================================================= */
+.actions {
+  display:flex;
+  gap:8px;
+}
+.actions button {
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  background:#f1f5f9;
+  transition:.2s;
+}
+.actions button:hover {
+  transform:translateY(-2px);
+}
+.actions .danger {
+  background:#fee2e2;
+}
+/* =========================================================
+   EMPTY
+   ========================================================= */
+.empty-row {
+  justify-content:center;
+  text-align:center;
+  color:#64748b;
+  padding:30px;
+}

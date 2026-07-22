@@ -1,0 +1,55 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+    <!-- ================= HEADER ================= -->
+    <div class="modal-header">
+      <h3>
+        {{ equipe().nom }}
+      </h3>
+      <button
+        type="button"
+        class="close"
+        (click)="close.emit()">
+        ✖
+      </button>
+    </div>
+    <!-- ================= CONTENT ================= -->
+    <div class="modal-content">
+      <div class="info">
+        <label>Nom</label>
+        <p>
+          {{ equipe().nom }}
+        </p>
+      </div>
+      <div class="info">
+        <label>Catégorie</label>
+        <p>
+          {{ equipe().categorie }}
+        </p>
+      </div>
+      <div class="info">
+        <label>Club</label>
+        <p>
+          @if (equipe().nom_du_club) {
+            {{ equipe().nom_du_club }}
+          } @else {
+            Aucun club
+          }
+        </p>
+      </div>
+    </div>
+    <!-- ================ ACTIONS ================= -->
+    <div class="modal-actions">
+      <button
+        type="button"
+        (click)="changeClub.emit(equipe())">
+        Changer le club
+      </button>
+      <button
+        type="button"
+        class="danger"
+        (click)="delete.emit(equipe().id)">
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>

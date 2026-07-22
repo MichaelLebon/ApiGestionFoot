@@ -1,0 +1,113 @@
+/* =========================================================
+   BARRE D'ACTIONS FILTRES EQUIPES
+   ========================================================= */
+.actions-bar {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  width:fit-content;
+  padding:16px 18px;
+  margin-bottom:24px;
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  box-shadow:
+   0 8px 20px rgba(0,0,0,.05);
+}
+/* =========================================================
+   RECHERCHE
+   ========================================================= */
+.search-input {
+  width:300px;
+  height:46px;
+  padding:0 16px;
+  border:2px solid #dbe3ee;
+  border-radius:12px;
+  background:white;
+  font-size:14px;
+  color:#1e293b;
+  transition:.25s;
+}
+.search-input::placeholder {
+  color:#94a3b8;
+}
+.search-input:hover {
+  border-color:#cbd5e1;
+}
+.search-input:focus {
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:
+    0 0 0 4px rgba(99,102,241,.12);
+}
+/* =========================================================
+   SELECT CATEGORIE
+   ========================================================= */
+.filter {
+  width:220px;
+  height:46px;
+  padding:0 14px;
+  border:2px solid #dbe3ee;
+  border-radius:12px;
+  background:white;
+  color:#1e293b;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.25s;
+}
+.filter:hover {
+  border-color:#cbd5e1;
+}
+.filter:focus {
+  outline:none;
+  border-color:#6366f1;
+  box-shadow:
+   0 0 0 4px rgba(99,102,241,.12);
+}
+/* =========================================================
+   BOUTON AJOUT
+   ========================================================= */
+.btn-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+ padding: 0 22px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+ color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(99, 102, 241, .28);
+  transition: .2s;
+}
+.btn-add i {
+  font-size:15px;
+}
+.btn-add:hover {
+  transform:translateY(-2px);
+  box-shadow:
+    0 14px 28px rgba(99,102,241,.35);
+}
+.btn-add:active {
+  transform:scale(.97);
+}
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media(max-width:900px){
+  .actions-bar {
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .search-input,
+  .filter,
+  .btn-add {
+    width:100%;
+  }
+}

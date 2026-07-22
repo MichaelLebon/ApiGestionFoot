@@ -1,0 +1,86 @@
+<div class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm flex items-center justify-center">
+
+  <div class="form-card min-w-2xl">
+
+    <!-- ================= HEADER ================= -->
+    <div class="header">
+      <h2>Ajouter une équipe</h2>
+      <p class="subtitle">
+        Création d'une nouvelle équipe
+      </p>
+    </div>
+    <!-- ================= NOM ================= -->
+    <div class="form-group">
+      <label for="nom">
+        Nom de l'équipe
+      </label>
+      <input
+        id="nom"
+        type="text"
+        placeholder="Ex : Seniors A"
+        [formField]="equipeForm.nom">
+      @if (equipeForm.nom().touched() && equipeForm.nom().errors().length) {
+        <small class="error">
+          {{ equipeForm.nom().errors()[0].message }}
+        </small>
+      }
+    </div>
+    <!-- ================= CATEGORIE ================= -->
+    <div class="form-group">
+      <label for="categorie">
+        Catégorie
+      </label>
+      <select
+        id="categorie"
+        [(ngModel)]="selectedCategorie">
+        <option value="SENIOR">Senior</option>
+        <option value="U21">U21</option>
+        <option value="U18">U18</option>
+        <option value="U15">U15</option>
+        <option value="U13">U13</option>
+        <option value="U11">U11</option>
+        <option value="U9">U9</option>
+      </select>
+    </div>
+    <!-- ================= CLUB ================= -->
+
+    <!--
+      Plus tard :
+
+      <div class="form-group">
+
+        <label>Club</label>
+
+        <select [(ngModel)]="selectedClubId">
+
+          @for (club of clubs(); track club.id) {
+
+            <option [value]="club.id">
+              {{ club.nom }}
+            </option>
+
+          }
+
+        </select>
+
+      </div>
+
+    -->
+
+    <!-- ================= ACTIONS ================= -->
+    <div class="actions">
+      <button
+        type="button"
+        class="save"
+        (click)="save()">
+        💾 Enregistrer
+      </button>
+      <button
+        type="button"
+        class="cancel"
+        (click)="cancelModal.emit()">
+        Annuler
+      </button>
+    </div>
+  </div>
+</div>

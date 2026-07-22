@@ -73,4 +73,10 @@ export default class DashboardCard implements OnInit {
   goToMembers(): void {
     console.log(this.router.navigate(['/membres/affectes']));
   }
+
+  goToEquipes(): void {
+    console.log(this.router.navigate(['/equipes']));
+  }
 }
+
+

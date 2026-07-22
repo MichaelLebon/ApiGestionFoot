@@ -46,6 +46,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/gestion-membres/components/membres-ajouts/membres-ajouts'),
   },
+  /**
+   * Liste équipes
+   */
+  {
+    path: 'equipes',
+    canActivate: [authKeycloakGuard],
+    loadComponent: () => import('./features/gestion-equipes/pages/equipes/equipes'),
+  } ,
+  /**
+   * Liste des clubs
+   */
+  {
+    path: 'clubs',
+    canActivate: [authKeycloakGuard],
+    loadComponent: () => import('./features/gestion-clubs/pages/clubs/clubs'),
+  },
 
   /**
    * Route inconnue

@@ -1,0 +1,139 @@
+/* =====================================
+   MODAL DETAIL EQUIPE
+===================================== */
+.modal-backdrop {
+  position:fixed;
+  inset:0;
+  background:
+    rgba(15,23,42,.65);
+  backdrop-filter:
+    blur(6px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:500;
+}
+/* =====================================
+   CARTE
+===================================== */
+.modal-card {
+  width:460px;
+  max-width:92%;
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.25);
+}
+/* =====================================
+   HEADER
+===================================== */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+  background: #0f172a;
+  color: white;
+}
+.modal-header h3 {
+  margin:0;
+  font-size:20px;
+}
+.close {
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+}
+.close:hover {
+  background:rgba(255,255,255,.25);
+}
+/* =====================================
+   CONTENU
+===================================== */
+.modal-content {
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.info {
+  background:#f8fafc;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+}
+.info label {
+  display:block;
+  margin-bottom:4px;
+  font-size:11px;
+  font-weight:700;
+  color:#64748b;
+  text-transform:uppercase;
+}
+.info p {
+  margin:0;
+  font-weight:700;
+  color:#1e293b;
+}
+/* =====================================
+   BADGE CATEGORIE
+===================================== */
+.badge {
+  display:inline-flex;
+  padding:5px 12px;
+  border-radius:999px;
+  background:#e0f2fe;
+  color:#0284c7;
+  font-size:12px;
+  font-weight:700;
+}
+/* =====================================
+   ACTIONS
+===================================== */
+.modal-actions {
+  display:flex;
+  gap:10px;
+  padding:15px;
+  background:#f8fafc;
+}
+.modal-actions button {
+  flex:1;
+  border:none;
+  padding:11px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:700;
+  transition:.2s;
+}
+.modal-actions button:not(.danger) {
+  background:
+    linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;
+}
+.modal-actions button:not(.danger):hover {
+  transform:translateY(-2px);
+}
+.modal-actions .danger {
+  background:#ef4444;
+  color:white;
+}
+.modal-actions .danger:hover {
+  background:#dc2626;
+}
+/* =====================================
+   RESPONSIVE
+===================================== */
+@media(max-width:600px){
+  .modal-card {
+    width:95%;
+  }
+  .modal-actions {
+    flex-direction:column;
+  }
+}
