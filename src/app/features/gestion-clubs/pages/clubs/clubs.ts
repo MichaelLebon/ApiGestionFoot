@@ -1,11 +1,13 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component,  inject, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Club } from '../../models/club.model';
+import { Club, ClubRequest } from '../../models/club.model';
 import { ClubService } from '../../services/club.service';
 import { ClubFiltresComponent } from '../../components/club-filtres/club-filtres';
 import { ClubTableComponent } from '../../components/club-table/club-table';
 import { ModalDetailClubComponent } from '../../components/modal-detail-club/modal-detail-club';
+import { ModalServices } from '../../../../shared/services/modal-services';
+import { ModalConfirm } from '../../../../shared/components/modal-confirm/modal-confirm';
 @Component({
   selector: 'app-clubs',
   standalone: true,
@@ -15,25 +17,33 @@ import { ModalDetailClubComponent } from '../../components/modal-detail-club/mod
     ClubFiltresComponent,
     ClubTableComponent,
     ModalDetailClubComponent,
+    ModalConfirm,
   ],
   templateUrl: './clubs.html',
   styleUrl: './clubs.css',
 })
-export default class ClubsComponent implements OnInit {
-  private readonly clubService = inject(ClubService);
-  private readonly cdr = inject(ChangeDetectorRef);
+export default class ClubsComponent {
+  clubService = inject(ClubService);
+  modalService = inject(ModalServices);
   /**
    * Liste complète des clubs
    */
-  clubs: Club[] = [];
+  clubs = this.clubService.clubs;
   /**
    * Liste affichée après filtres
    */
-  filteredClubs: Club[] = [];
-  /**
-   * Compteur dynamique
-   */
-  totalClubs = 0;
+  selectedIdToDelete = signal<string | null>(null);
+  search = signal('');
+  local = signal('');
+  filteredClubs = computed(() => {
+    const searchFinal = this.search().toLowerCase();
+    const localFinal = this.local().toLowerCase();
+    return this.clubs().filter((club) => {
+      const clubName = !searchFinal || club.nom.toLowerCase().includes(searchFinal);
+      const clubLocal = !localFinal || club.local.toLowerCase().includes(localFinal);
+      return clubName && clubLocal;
+    });
+  });
   /**
    * Club sélectionné pour détail
    */
@@ -53,28 +63,7 @@ export default class ClubsComponent implements OnInit {
     nom: '',
     local: '',
   };
-  ngOnInit(): void {
-    this.loadClubs();
-  }
-  /**
-   * Chargement des clubs depuis API
-   */
-  loadClubs(): void {
-    this.clubService.getAll().subscribe({
-      next: (clubs) => {
-        this.clubs = clubs;
-        this.filteredClubs = [...clubs];
-        this.totalClubs = clubs.length;
-        /**
-         * Correction Angular NG0100
-         */
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Erreur récupération clubs :', err);
-      },
-    });
-  }
+
   /**
    * Ouverture modal ajout
    */
@@ -98,10 +87,13 @@ export default class ClubsComponent implements OnInit {
     if (!this.newClub.nom.trim()) {
       return;
     }
-    this.clubService.create(this.newClub).subscribe({
+    const clubRequest = {
+      nom: this.newClub.nom,
+      local: this.newClub.local,
+    };
+    this.clubService.create(clubRequest).subscribe({
       next: () => {
         this.closeAddModal();
-        this.loadClubs();
       },
       error: (err) => {
         console.error('Erreur ajout club :', err);
@@ -109,22 +101,12 @@ export default class ClubsComponent implements OnInit {
     });
   }
   /**
-   * Filtrage clubs
-   */
-  onFiltersChange(filters: { nom: string; local: string }): void {
-    this.filteredClubs = this.clubs.filter((club) => {
-      const nomMatch = club.nom.toLowerCase().includes(filters.nom.toLowerCase());
-      const localMatch = club.local.toLowerCase().includes(filters.local.toLowerCase());
-      return nomMatch && localMatch;
-    });
-  }
- /**
    * Afficher détail club
    */
   openDetail(club: Club): void {
     this.selectedClub = club;
     this.detailVisible = true;
- }
+  }
   /**
    * Fermer détail club
    */
@@ -135,17 +117,38 @@ export default class ClubsComponent implements OnInit {
   /**
    * Suppression club
    */
-  supprimerClub(club: Club): void {
-    if (!confirm(`Supprimer le club "${club.nom}" ?`)) {
+  modalConfirmIsOpen = signal(false);
+  confirmMessage = signal('');
+
+  supprimerClub() {
+
+    const id = this.selectedIdToDelete();
+    if (!id) {
+      console.error('Aucun club sélectionné');
       return;
     }
-    this.clubService.delete(club.id).subscribe({
+    this.clubService.delete(id).subscribe({
       next: () => {
-        this.loadClubs();
+        this.modalService.success('Club supprimé avec succès');
+        this.closeConfirm();
+        this.selectedIdToDelete.set(null);
       },
       error: (err) => {
-        console.error('Erreur suppression club :', err);
+        console.error(err);
+        this.modalService.error('Erreur suppression club');
+        this.closeConfirm();
       },
     });
+  }
+  public openConfirm(message: string, club: Club): void {
+    this.selectedIdToDelete.set(club.id);
+    this.confirmMessage.set(message);
+    this.modalConfirmIsOpen.set(true);
+  }
+
+  closeConfirm(): void {
+    this.selectedIdToDelete.set(null);
+    this.modalConfirmIsOpen.set(false);
+    this.confirmMessage.set(" ");
   }
 }

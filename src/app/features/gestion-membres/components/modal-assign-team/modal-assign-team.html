@@ -1,0 +1,25 @@
+<div class="fixed z-40 bg-black/40 backdrop-blur-sm flex items-center justify-center">
+  <div class="form-card">
+    <div class="header">
+      <h2>Assigner une équipe</h2>
+      <p class="subtitle">Dans quelle équipe voulez-vous mettre ce membre ?</p>
+    </div>
+
+    <div class="form-group">
+      <label for="equipe-select">Équipe</label>
+      <select id="equipe-select" [value]="selectedValue()" (change)="onSelectChange($event)">
+        <option [value]="undefined"  selected>-- Choisir une équipe --</option>
+        @for (equipe of equipes(); track equipe.id) {
+          <option [value]="equipe.id">
+            {{ equipe.nom }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <div class="actions">
+      <button class="cancel" (click)="cancel.emit()">Annuler</button>
+      <button class="save" [disabled]="!selectedValue()" (click)="confirm.emit(selectedValue()!)">Confirmer</button>
+    </div>
+  </div>
+</div>

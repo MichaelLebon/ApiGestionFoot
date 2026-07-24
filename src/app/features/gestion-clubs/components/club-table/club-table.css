@@ -1,118 +1,130 @@
 /* =========================================================
-   TABLEAU CLUBS
+   TABLEAU
    ========================================================= */
-.club-table {
-  width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, .05);
+.table{
+  margin-top:20px;
+  background:#ffffff;
+  border:1px solid #e2e8f0;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
+.row{
+  display:grid;
+  grid-template-columns:2fr 2fr 1fr 1fr;
+  align-items:center;
+  gap:10px;
+  padding:16px 18px;
+  border-bottom:1px solid #edf2f7;
+  transition:background .2s;
+}
+.row:last-child{
+  border-bottom:none;
+}
+.row:hover{
+  background:#f8fafc;
+}
+.row.header{
+  background:#0f172a;
+  color:#fff;
+  font-weight:600;
+}
+.empty-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:30px;
+  color:#64748b;
 }
 /* =========================================================
-   EN-TÊTE
+   TEXTES
    ========================================================= */
-.club-table thead {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-}
-.club-table thead th {
-  padding: 16px;
-  color: #ffffff;
-  font-size: .95rem;
-  font-weight: 600;
-  text-align: left;
+.bold{
+  font-weight:700;
+  color:#1e293b;
 }
 /* =========================================================
-   LIGNES
+   BADGE ÉQUIPES
    ========================================================= */
-.club-table tbody tr {
-  transition: background .25s ease;
-}
-.club-table tbody tr:nth-child(even) {
- background: #f8fafc;
-}
-.club-table tbody tr:hover {
-  background: #eff6ff;
-}
-/* =========================================================
-   CELLULES
-   ========================================================= */
-.club-table td {
-  padding: 16px;
-  border-top: 1px solid #e2e8f0;
-  color: #334155;
-  vertical-align: middle;
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:36px;
+  padding:6px 12px;
+  background:#e0f2fe;
+  color:#0284c7;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
 }
 /* =========================================================
    ACTIONS
    ========================================================= */
-.actions {
-  display: flex;
-  gap: 10px;
+.actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-/* =========================================================
-   BOUTON DÉTAIL
-   ========================================================= */
-.btn-detail {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: .90rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all .25s ease;
+.actions button{
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:transform .2s, background .2s;
 }
-.btn-detail:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(37, 99, 235, .25);
+/* Bouton détail */
+.btn-detail{
+  background:#dbeafe;
+  color:#2563eb;
 }
-/* =========================================================
-   BOUTON SUPPRIMER
-   ========================================================= */
-.btn-delete {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 16px;
-  background: #ef4444;
-  color: #ffffff;
-  font-size: .90rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all .25s ease;
+.btn-detail:hover{
+  background:#bfdbfe;
+  transform:translateY(-2px);
 }
-.btn-delete:hover {
-  background: #dc2626;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(239, 68, 68, .25);
+/* Bouton supprimer */
+.btn-delete{
+  background:#fee2e2;
+  color:#dc2626;
 }
-/* =========================================================
-   AUCUN RÉSULTAT
-   ========================================================= */
-.empty {
-  text-align: center;
-  padding: 32px;
-  color: #64748b;
-  font-style: italic;
+.btn-delete:hover{
+  background:#fecaca;
+  transform:translateY(-2px);
 }
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-@media (max-width: 900px) {
-  .club-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+@media (max-width:900px){
+  .row{
+    grid-template-columns:1fr;
+    gap:12px;
   }
-  .actions {
-    flex-direction: column;
+  .row.header{
+    display:none;
   }
-  .btn-detail,
-  .btn-delete {
-    width: 100%;
+  .row > div::before{
+    display:block;
+    margin-bottom:4px;
+    font-size:12px;
+    font-weight:700;
+    color:#64748b;
+    text-transform:uppercase;
+  }
+  .row > div:nth-child(1)::before{
+    content:"Nom";
+  }
+  .row > div:nth-child(2)::before{
+    content:"Local";
+  }
+  .row > div:nth-child(3)::before{
+    content:"Équipes";
+  }
+  .row > div:nth-child(4)::before{
+    content:"Actions";
+  }
+  .actions{
+    justify-content:flex-start;
+    flex-wrap:wrap;
   }
 }

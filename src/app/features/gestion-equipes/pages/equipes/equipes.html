@@ -28,7 +28,6 @@
   <app-modal-detail-equipe
     [equipe]="selectedEquipe()!"
     (close)="closeModal()"
-    (changeClub)="openModalClub(selectedEquipe()!)"
     (delete)="deleteEquipe($event)">
   </app-modal-detail-equipe>
 }
@@ -43,31 +42,22 @@
   <app-modal-generique
     (cancel)="closeModalClub()"
     (confirm)="assignClub()">
-
     <div class="club-select">
-
       <label for="club">
         Club
       </label>
-
       <select
         id="club"
         [ngModel]="selectedClubId()"
         (ngModelChange)="selectedClubId.set($event)">
-
-        <!--
-        @for (club of clubs(); track club.id) {
-          <option [value]="club.id">
-            {{ club.nom }}
-          </option>
-        }
-        -->
       </select>
     </div>
   </app-modal-generique>
 }
   @if (isModalAddOpen()) {
-    <app-equipes-ajout>
+
+    <app-equipes-ajout
+    (closeModal)="closeModalAjout()">
     </app-equipes-ajout>
 
 }

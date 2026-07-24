@@ -28,7 +28,7 @@
     </div>
     <div class="modal-actions">
       <button type="button" (click)="manageRoles.emit(membre())">Rôles</button>
-      <button type="button" class="danger" (click)="delete.emit(membre())">Supprimer</button>
+      <button type="button" class="danger" (click)="delete.emit(membre())"> Supprimer 🗑</button>
       @if (membre().equipe) {
         <button type="button" (click)="removeFromTeam.emit(membre())">Rendre libre</button>
       }

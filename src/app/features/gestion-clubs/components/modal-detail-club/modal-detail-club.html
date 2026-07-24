@@ -1,49 +1,48 @@
-@if (visible && club) {
-  <div class="modal-overlay" (click)="fermer()">
-    <div class="modal" (click)="$event.stopPropagation()">
+  <div class="modal-overlay">
+    <div class="modal">
       <div class="modal-header">
         <h2>Détails du club</h2>
         <button
           type="button"
           class="close-button"
-          (click)="fermer()">
+          (click)="close.emit()">
           ✕
         </button>
       </div>
       <div class="modal-body">
         <div class="detail-row">
-          <span class="label">Nom</span>
-          <span>{{ club.nom }}</span>
+          <label>Nom</label>
+          <p>{{ club().nom }}</p>
         </div>
         <div class="detail-row">
-          <span class="label">Local</span>
-          <span>{{ club.local }}</span>
+          <label>Local</label>
+          <p>{{ club().local }}</p>
         </div>
         <div class="detail-row">
-          <span class="label">Nombre d'équipes</span>
-          <span>{{ club.equipes.length }}</span>
+          <label>Nombre d'équipes</label>
+          <p>{{ club().equipes.length }}</p>
         </div>
         <div class="detail-row">
-          <span class="label">Équipes</span>
-          @if (club.equipes.length > 0) {
+          <label>Équipes</label>
+          @if (club().equipes.length > 0) {
             <ul>
-              @for (equipe of club.equipes; track equipe) {
+              @for (equipe of club().equipes; track equipe) {
                 <li>{{ equipe }}</li>
               }
             </ul>
           } @else {
-            <span>Aucune équipe</span>
+            <p>Aucune équipe</p>
           }
         </div>
       </div>
      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn-primary"
-          (click)="fermer()">
-          Fermer
-        </button>
+       <button
+       type="button"
+       class="btn-delete"
+       (click)="delete.emit(club())">
+         Supprimer 🗑
+     </button>
       </div>
     </div>
   </div>
-}
+

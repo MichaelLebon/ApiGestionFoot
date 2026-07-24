@@ -1,39 +1,45 @@
-<table class="club-table">
-  <thead>
-  <tr>
-    <th>Nom</th>
-    <th>Local</th>
-    <th>Équipes</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (club of clubs; track club.nom) {
-      <tr>
-        <td>{{ club.nom }}</td>
-        <td>{{ club.local }}</td>
-        <td>{{ club.equipes.length }}</td>
-        <td class="actions">
+<div class="table">
+  <!-- En-tête -->
+  <div class="row header">
+    <div>Nom</div>
+    <div>Local</div>
+    <div>Équipes</div>
+    <div>Actions</div>
+  </div>
+  <!-- Liste des clubs -->
+  @if (clubs().length > 0) {
+    @for (club of clubs(); track club.nom) {
+      <div class="row">
+        <div>
+          <span class="bold">{{ club.nom }}</span>
+        </div>
+        <div>
+          {{ club.local }}
+        </div>
+        <div>
+          <span class="badge">
+            {{ club.equipes.length }}
+          </span>
+        </div>
+        <div class="actions">
           <button
+            type="button"
             class="btn-detail"
-            type="button"
-            (click)="voirDetail(club)">
-            Détails
+            (click)="detail.emit(club)">
+            👁
           </button>
           <button
-            class="btn-delete"
             type="button"
-            (click)="supprimer(club)">
-            Supprimer
+            class="btn-delete"
+            (click)="delete.emit(club)">
+            🗑
           </button>
-      </td>
-      </tr>
-    } @empty {
-      <tr>
-        <td colspan="4" class="empty">
-         Aucun club trouvé.
-      </td>
-     </tr>
+        </div>
+      </div>
     }
-  </tbody>
-</table>
+  } @else {
+    <div class="row empty-row">
+      Aucun club trouvé.
+    </div>
+  }
+</div>

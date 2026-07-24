@@ -7,6 +7,7 @@ import { form, FormField, required, submit } from '@angular/forms/signals';
 import { ModalServices } from '../../../../shared/services/modal-services';
 import { EquipesService } from '../../services/equipes.service';
 import { EquipeRequest, CategorieEquipe } from '../../models/equipe.model';
+import { ClubService } from '../../../gestion-clubs/services/club.service';
 @Component({
   selector: 'app-equipes-ajout',
   standalone: true,
@@ -19,6 +20,7 @@ export default class EquipesAjoutComponent {
 
   private modalService = inject(ModalServices);
   private equipesService = inject(EquipesService);
+  private clubService = inject(ClubService);
 
   // ================= DATA =================
 
@@ -27,19 +29,17 @@ export default class EquipesAjoutComponent {
     categorie: 'SENIOR',
     club_id: '',
   });
-
   equipeForm = form(this.equipeModel, (schemaPath) => {
     required(schemaPath.nom, {
       message: "Le nom de l'équipe est requis",
     });
     required(schemaPath.categorie, { message: 'La catégorie est requise' });
   });
+  clubs = this.clubService.clubs;
   selectedCategorie: CategorieEquipe = 'SENIOR';
-  //  TODO Plus tard on remplacera ceci par la sélection d'un vrai club
   selectedClubId = '';
 
   // ================= SAVE =================
-
   async save(): Promise<void> {
     this.equipeModel.update((equipe) => ({
       ...equipe,
@@ -52,6 +52,7 @@ export default class EquipesAjoutComponent {
         next: () => {
           this.confirmModal.emit(false);
           this.modalService.success('Équipe ajoutée avec succès');
+          this.closeModal.emit();
         },
         error: (err) => {
           console.error(err);
@@ -63,6 +64,6 @@ export default class EquipesAjoutComponent {
 
   // ================= CANCEL =================
 
-  cancelModal = output<void>();
+  closeModal = output<void>();
   confirmModal = output<boolean>();
 }

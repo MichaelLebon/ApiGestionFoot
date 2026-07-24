@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Club } from '../../models/club.model';
+import { Equipe } from '../../../gestion-equipes/models/equipe.model';
+import { ClubTableComponent } from '../club-table/club-table';
 
 @Component({
   selector: 'app-modal-detail-club',
@@ -11,13 +13,7 @@ import { Club } from '../../models/club.model';
   styleUrl: './modal-detail-club.css',
 })
 export class ModalDetailClubComponent {
-  @Input({ required: true })
-  visible = false;
-  @Input()
-  club: Club | null = null;
-  @Output()
-  close = new EventEmitter<void>();
-  fermer(): void {
-    this.close.emit();
-  }
+  club = input.required<Club>();
+  close = output<void>();
+  delete = output<Club>();
 }

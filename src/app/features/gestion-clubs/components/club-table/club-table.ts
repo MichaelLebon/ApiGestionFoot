@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Club } from '../../models/club.model';
+import { Equipe } from '../../../gestion-equipes/models/equipe.model';
 
 @Component({
   selector: 'app-club-table',
@@ -11,16 +12,8 @@ import { Club } from '../../models/club.model';
   styleUrl: './club-table.css',
 })
 export class ClubTableComponent {
-  @Input({ required: true })
-  clubs: Club[] = [];
-  @Output()
-  detail = new EventEmitter<Club>();
-  @Output()
-  delete = new EventEmitter<Club>();
-  voirDetail(club: Club): void {
-    this.detail.emit(club);
-  }
-  supprimer(club: Club): void {
-    this.delete.emit(club);
-  }
+  clubs = input.required<Club[]>();
+  detail = output<Club>();
+  delete = output<Club>();
+  modalIsOpen = output<Club>();
 }

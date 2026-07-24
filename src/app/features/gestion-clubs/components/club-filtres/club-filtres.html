@@ -6,8 +6,7 @@
     <input
       id="nom"
       type="text"
-      [(ngModel)]="nom"
-      (input)="emitFilters()"
+      [(ngModel)]="search"
       placeholder="Rechercher un club...">
   </div>
   <div class="filter-group">
@@ -18,7 +17,14 @@
       id="local"
       type="text"
       [(ngModel)]="local"
-      (input)="emitFilters()"
       placeholder="Rechercher une ville...">
+  </div>
+  <div class="add-container">
+    <button
+      class="btn-add"
+      (click)="openAddModal.emit()">
+      <i class="pi pi-plus"></i>
+      Ajouter un club
+    </button>
   </div>
 </div>

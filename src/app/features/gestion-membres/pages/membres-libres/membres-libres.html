@@ -22,7 +22,7 @@
     type="libre"
     emptyMessage="Aucun membre libre trouvé."
     (detail)="openDetail($event)"
-    (assign)="assignMemberToTeam($event)"
+    (assign)="openModalTeam($event)"
     (delete)="openModalConfirm($event)"
   />
 
@@ -41,7 +41,7 @@
     [membre]="selectedJoueur()!"
     (close)="closeModal()"
     (activate)="openModalActive(selectedJoueur()!)"
-    (assign)="assignMemberToTeam($event)"
+    (assign)="openModalTeam($event)"
     (delete)="openModalConfirm(selectedJoueur()!)"
   />
 }
@@ -67,4 +67,13 @@
     (confirm)="activateMember(selectedJoueur()!)"
     [message]="confirmMessage()">
   </app-modal-confirm>
+}
+@if ((modalTeamIsOpen())) {
+  <app-modal-assign-team
+  (cancel)="closeModalTeam()"
+  (confirm)="assignMemberToTeam($event)"
+  [equipes]="equipe()"
+  >
+  </app-modal-assign-team>
+
 }

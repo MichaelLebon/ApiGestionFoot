@@ -13,35 +13,31 @@
         Total clubs
       </span>
       <strong>
-        {{ totalClubs }}
+        {{ filteredClubs().length }}
       </strong>
     </div>
   </div>
   <!-- FILTRES -->
   <app-club-filtres
-    (filtersChange)="onFiltersChange($event)">
+  [(search)]="search"
+  [(local)]="local"
+  (openAddModal)="openAddModal()"
+  >
   </app-club-filtres>
-  <!-- BOUTON AJOUT -->
-  <div class="add-container">
-    <button
-     class="btn-add"
-      (click)="openAddModal()">
-     <i class="pi pi-plus"></i>
-      Ajouter un club
-    </button>
-  </div>
   <!-- TABLEAU -->
   <app-club-table
-    [clubs]="filteredClubs"
+    [clubs]="filteredClubs()"
     (detail)="openDetail($event)"
-    (delete)="supprimerClub($event)">
+    (delete)="openConfirm('Voulez vous supprimé ce club ? ', $event)">
   </app-club-table>
   <!-- MODAL DETAIL -->
+  @if (detailVisible && selectedClub) {
   <app-modal-detail-club
-    [visible]="detailVisible"
-    [club]="selectedClub"
-    (close)="closeDetail()">
+    (close)="closeDetail()"
+    (delete)="openConfirm('Voulez vous supprimé ce club ? ', $event)"
+    [club]="selectedClub">
   </app-modal-detail-club>
+}
   <!-- MODAL AJOUT -->
   @if (addModalVisible) {
     <div class="modal-overlay">
@@ -83,3 +79,10 @@
     </div>
   }
 </div>
+@if (modalConfirmIsOpen()){
+  <app-modal-confirm
+    [message]="confirmMessage()"
+    (confirm)="supprimerClub()"
+    (cancel)="closeConfirm()">
+  </app-modal-confirm>
+}

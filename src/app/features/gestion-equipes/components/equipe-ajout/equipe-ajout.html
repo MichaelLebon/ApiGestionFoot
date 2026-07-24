@@ -43,30 +43,17 @@
       </select>
     </div>
     <!-- ================= CLUB ================= -->
-
-    <!--
-      Plus tard :
-
-      <div class="form-group">
-
+          <div class="form-group">
         <label>Club</label>
-
         <select [(ngModel)]="selectedClubId">
-
+          <option value="">Selection du club </option>
           @for (club of clubs(); track club.id) {
-
             <option [value]="club.id">
               {{ club.nom }}
             </option>
-
           }
-
         </select>
-
       </div>
-
-    -->
-
     <!-- ================= ACTIONS ================= -->
     <div class="actions">
       <button
@@ -78,7 +65,7 @@
       <button
         type="button"
         class="cancel"
-        (click)="cancelModal.emit()">
+        (click)="closeModal.emit()">
         Annuler
       </button>
     </div>

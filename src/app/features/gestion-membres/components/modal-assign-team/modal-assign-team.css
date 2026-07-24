@@ -1,0 +1,145 @@
+/* =====================================
+   BACKDROP MODAL
+===================================== */
+.fixed {
+  position: fixed;
+  inset: 0;
+}
+.z-40 {
+  z-index: 40;
+}
+.bg-black\/40 {
+  background: rgba(0,0,0,.40);
+}
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+.flex {
+  display: flex;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+
+/* =====================================
+   CARTE FORMULAIRE
+===================================== */
+.form-card {
+  width: min(500px, 90vw);
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.15);
+  border: 1px solid #e2e8f0;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+.header {
+  margin-bottom: 25px;
+}
+.header h2 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.subtitle {
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* =====================================
+   CHAMPS
+===================================== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+}
+.form-group select {
+  height: 46px;
+  padding: 0 15px;
+  border-radius: 12px;
+  border: 2px solid #dbe3ee;
+  background: #fff;
+  font-size: 14px;
+  color: #1e293b;
+  transition: .2s;
+}
+.form-group select:hover {
+  border-color: #cbd5e1;
+}
+.form-group select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,.12);
+}
+
+/* =====================================
+   ACTIONS
+===================================== */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+.actions button {
+  height: 44px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  transition: .2s;
+}
+.save {
+  background: linear-gradient(135deg,#6366f1,#8b5cf6);
+  color: white;
+}
+.save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(99,102,241,.3);
+}
+.save:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.cancel {
+  background: #f1f5f9;
+  color: #334155;
+}
+.cancel:hover {
+  background: #e2e8f0;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+@media (max-width: 600px) {
+  .form-card {
+    width: 95vw;
+    padding: 20px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .actions button {
+    width: 100%;
+  }
+}

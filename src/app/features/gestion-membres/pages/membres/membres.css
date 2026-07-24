@@ -13,7 +13,6 @@
   box-shadow:0 10px 25px rgba(37,99,235,.15);
   color:#0f172a;
 }
-
 /* =========================================================
    HEADER
    ========================================================= */
@@ -30,7 +29,6 @@
   color:#64748b;
   font-size:14px;
 }
-
 /* =========================================================
    STATISTIQUES
    ========================================================= */
@@ -60,7 +58,6 @@
   color:#64748b;
   font-size:13px;
 }
-
 /* =========================================================
    SECTION INACTIFS
    ========================================================= */
@@ -71,16 +68,14 @@
   font-weight:700;
   color:#1e293b;
 }
-
 /* =========================================================
-   SECTION beau button trop joli ma gueule
+   SECTION
    ========================================================= */
 .mode-toggle {
   display: flex;
   gap: 10px;
   margin-bottom: 16px;
 }
-
 .mode-btn {
   flex: 1;
   display: flex;
@@ -97,36 +92,30 @@
   cursor: pointer;
   transition: transform .2s, box-shadow .2s, background .2s, border-color .2s, color .2s;
 }
-
 .mode-btn:hover {
   transform: translateY(-2px);
 }
-
 .mode-btn.add.active {
   background: linear-gradient(135deg, #6366f1, #8b5cf6);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 10px 22px rgba(99, 102, 241, .3);
 }
-
 .mode-btn.remove.active {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   border-color: transparent;
   color: #fff;
   box-shadow: 0 10px 22px rgba(220, 38, 38, .3);
 }
-
 .mode-btn:active {
   transform: scale(.97);
 }
-
 .role-select {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 16px;
 }
-
 .role-select label {
   font-size: 13px;
   font-weight: 700;
@@ -134,7 +123,6 @@
   text-transform: uppercase;
   letter-spacing: .04em;
 }
-
 .role-select select {
   height: 46px;
   padding: 0 40px 0 16px;
@@ -152,11 +140,9 @@
   cursor: pointer;
   transition: border-color .2s, box-shadow .2s;
 }
-
 .role-select select:hover {
   border-color: #c7d2e0;
 }
-
 .role-select select:focus {
   outline: none;
   border-color: #6366f1;

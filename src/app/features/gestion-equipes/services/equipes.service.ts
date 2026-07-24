@@ -1,9 +1,10 @@
-import { computed, Injectable } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { tap } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { Equipe, EquipeRequest, MembreEquipe } from '../models/equipe.model';
+import { ClubService } from '../../gestion-clubs/services/club.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class EquipesService {
   private readonly apiUrl = `${environment.apiUrl}/equipes`;
 
   // ================= RESSOURCE =================
-
+  private readonly clubService = inject(ClubService);
   equipesResource = httpResource<Equipe[]>(() => this.apiUrl);
 
   equipes = computed(() => this.equipesResource.value() ?? []);
@@ -40,21 +41,34 @@ export class EquipesService {
   // ================= CREATE =================
 
   createEquipe(request: EquipeRequest) {
-    return this.http.post<Equipe>(this.apiUrl, request).pipe(tap(() => this.reload()));
+    return this.http.post<Equipe>(this.apiUrl, request).pipe(
+      tap(() => {
+        this.reload();
+        this.clubService.reload();
+      }),
+    );
   }
 
   // ================= UPDATE =================
 
   updateClub(equipeId: string, clubId: string) {
-    return this.http
-      .put<Equipe>(`${this.apiUrl}/${equipeId}/club/${clubId}`, {})
-      .pipe(tap(() => this.reload()));
+    return this.http.put<Equipe>(`${this.apiUrl}/${equipeId}/club/${clubId}`, {}).pipe(
+      tap(() => {
+        this.reload();
+        this.clubService.reload();
+      }),
+    );
   }
 
   // ================= DELETE =================
 
   deleteEquipe(id: string) {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(tap(() => this.reload()));
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      tap(() => {
+        this.reload();
+        this.clubService.reload();
+      }),
+    );
   }
 
   // ================= RELOAD =================

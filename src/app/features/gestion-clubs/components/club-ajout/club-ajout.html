@@ -3,14 +3,14 @@
     <h2>Ajouter un club</h2>
     <p>Créer un nouveau club de football.</p>
   </div>
-  <form (ngSubmit)="ajouterClub()" #clubForm="ngForm">
+  <form (ngSubmit)="save()" #clubForm="ngForm">
     <div class="form-group">
       <label for="nom">Nom du club</label>
       <input
         id="nom"
         name="nom"
         type="text"
-        [(ngModel)]="club.nom"
+        [(ngModel)]="clubModel().nom"
         required
         minlength="3"
         maxlength="30"
@@ -22,7 +22,7 @@
         id="local"
         name="local"
         type="text"
-        [(ngModel)]="club.local"
+        [(ngModel)]="clubModel().local"
         required
         minlength="3"
         maxlength="30"
@@ -32,13 +32,13 @@
       <button
        class="btn-primary"
         type="submit"
-        [disabled]="clubForm.invalid || loading">
-        {{ loading ? 'Ajout...' : 'Ajouter le club' }}
+        [disabled]="clubForm.invalid  ">
+        {{  'Ajouter le club' }}
       </button>
       <button
         class="btn-secondary"
         type="button"
-        (click)="reset()">
+        (click)="cancelModal.emit()">
         Annuler
       </button>
     </div>

@@ -13,6 +13,5 @@ import { Equipe } from '../../models/equipe.model';
 export class ModalDetailEquipeComponent {
   equipe = input.required<Equipe>();
   close = output<void>();
-  changeClub = output<Equipe>();
   delete = output<string>();
 }

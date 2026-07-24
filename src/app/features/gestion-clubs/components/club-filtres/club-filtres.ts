@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, model, output, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,17 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './club-filtres.css',
 })
 export class ClubFiltresComponent {
-  @Output()
-  filtersChange = new EventEmitter<{
-    nom: string;
-    local: string;
-  }>();
-  nom = '';
-  local = '';
-  emitFilters(): void {
-    this.filtersChange.emit({
-      nom: this.nom,
-      local: this.local,
-    });
- }
+  search = model<string>();
+  local = model<string>();
+  openAddModal=output();
 }

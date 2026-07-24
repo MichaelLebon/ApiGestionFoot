@@ -9,6 +9,8 @@ import { ModalConfirm } from '../../../../shared/components/modal-confirm/modal-
 import { ModalDetailInactif } from '../../components/modal-detail-inactif/modal-detail-inactif';
 import { MembresFiltresComponent } from '../../components/membres-filtres/membres-filtres';
 import { MembresTableComponent } from '../../components/membres-table/membres-table';
+import { EquipesService } from '../../../gestion-equipes/services/equipes.service';
+import { ModalAssignTeam } from '../../components/modal-assign-team/modal-assign-team';
 
 @Component({
   selector: 'app-membres-libres',
@@ -20,6 +22,7 @@ import { MembresTableComponent } from '../../components/membres-table/membres-ta
     ModalDetailInactif,
     MembresFiltresComponent,
     MembresTableComponent,
+    ModalAssignTeam,
   ],
   templateUrl: './membres-libres.html',
   styleUrls: ['./membres-libres.css'],
@@ -27,6 +30,7 @@ import { MembresTableComponent } from '../../components/membres-table/membres-ta
 export default class MembresLibresComponent {
   private readonly membreService = inject(MembreService);
   private modalService = inject(ModalServices);
+  private equipeService = inject(EquipesService);
 
   confirmMessage = signal('');
   selectedIdToDelete = signal<string | null>(null);
@@ -34,7 +38,8 @@ export default class MembresLibresComponent {
   modalAjoutIsOpen = signal(false);
   modalConfirmIsOpen = signal(false);
   modalDetailIsOpen = signal(false);
-
+  modalTeamIsOpen = signal(false);
+  equipe = this.equipeService.equipes;
   membresLibre = this.membreService.membresLibres;
   membresInactifs = this.membreService.membresInactifs;
   selectedJoueur = signal<Membre | null>(null);
@@ -65,13 +70,19 @@ export default class MembresLibresComponent {
     this.closeModalConfirm();
   }
 
-  assignMemberToTeam(membre: Membre): void {
-    const equipeId = prompt("Identifiant de l'équipe :");
-    if (!equipeId) return;
+  assignMemberToTeam(equipeId:string): void {
+    const membre = this.selectedJoueur();
+
+    if (!membre) {
+      return;
+    }
+    if (!equipeId)
+      return;
+    const equipe = this.equipe().find(e=>e.id === equipeId)
     this.membreService.assignMemberToTeam(membre, equipeId).subscribe({
       next: () =>
         this.modalService.success(
-          `${membre.prenom} ${membre.nom} Est devenue un joueur du ${equipeId}`,
+          `${membre.prenom} ${membre.nom} est devenue un joueur du ${equipe!.nom}`,
         ),
       error: () =>
         this.modalService.error(
@@ -83,7 +94,7 @@ export default class MembresLibresComponent {
 
   activateMember(membre: Membre): void {
     this.membreService.activateMember(membre).subscribe({
-      next: () => this.modalService.success(`${membre.prenom} ${membre.nom} Est devenu actif`),
+      next: () => this.modalService.success(`${membre.prenom} ${membre.nom} est devenu actif`),
       error: () =>
         this.modalService.error(`erreur pour l'activation de ${membre.prenom} ${membre.nom} `),
     });
@@ -124,5 +135,13 @@ export default class MembresLibresComponent {
 
   closeModalActive(): void {
     this.modalActiveIsOpen.set(false);
+  }
+  openModalTeam(membre:Membre): void {
+    this.selectedJoueur.set(membre);
+    this.modalTeamIsOpen.set(true);
+  }
+
+  closeModalTeam(): void {
+    this.modalTeamIsOpen.set(false);
   }
 }

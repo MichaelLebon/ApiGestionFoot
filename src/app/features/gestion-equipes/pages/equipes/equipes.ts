@@ -36,10 +36,10 @@ export default class EquipesComponent {
   filterCategorie = signal('');
   filteredList = computed(() => {
     const term = this.search().toLowerCase();
-    const categorie = this.filterCategorie();
+    const categorie = this.filterCategorie().toLowerCase();
     return this.equipes().filter((equipe) => {
       const matchText = !term || equipe.nom.toLowerCase().includes(term);
-      const matchCategorie = !categorie || equipe.categorie === categorie;
+      const matchCategorie = !categorie || equipe.categorie.toLowerCase().includes(categorie);
       return matchText && matchCategorie;
     });
   });
@@ -112,9 +112,7 @@ export default class EquipesComponent {
   // ================= AJOUT =================
   isModalAddOpen = signal(false);
   openModalAjout() {
-    console.log("je suis la ")
     this.isModalAddOpen.set(true);
-
   }
   closeModalAjout() {
     this.isModalAddOpen.set(false);
